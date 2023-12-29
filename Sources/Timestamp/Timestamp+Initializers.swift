@@ -48,14 +48,13 @@ import Foundation
 extension Timestamp  {
     public init(from date: Date) {
         let timeInterval = date.timeIntervalSince1970
+        let fraction = timeInterval
+            .magnitude
+            .truncatingRemainder(dividingBy: 1)
         self.init(
             rawValue: (
                 .init(timeInterval.magnitude),
-                .init(
-                    timeInterval
-                        .magnitude
-                        .truncatingRemainder(dividingBy: 1) * 1000_000_000
-                )
+                .init(fraction * 1_000_000) * 1000
             )
         )
     }
