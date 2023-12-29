@@ -25,10 +25,6 @@
 
 extension Timestamp: CustomStringConvertible {
     public var description: String {
-        """
-        Timestamp:
-        seconds: \(self.rawValue.0)
-        nanoseconds: \(self.rawValue.1)
-        """
+        "Timestamp (seconds: \(self.rawValue.0), nanoseconds: \(self.rawValue.1))"
     }
 }
