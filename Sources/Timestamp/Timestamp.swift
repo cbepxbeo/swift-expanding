@@ -22,3 +22,19 @@
  |---------------------------------------------------------------------------------------
  
  */
+
+#if canImport(Darwin)
+  import Darwin
+#elseif canImport(Glibc)
+  import Glibc
+#else
+  #error("Unsupported platform")
+#endif
+
+public struct Timestamp {
+    public init(rawValue value: timespec) {
+        self.rawValue = (.init(value.tv_sec), .init(value.tv_nsec))
+    }
+    let rawValue: (Int64, Int64)
+}
+
