@@ -35,6 +35,29 @@ extension Timestamp {
     public init(){
         var time = timespec()
         clock_gettime(CLOCK_REALTIME, &time)
-        self.init(rawValue: time)
+        self.init(timespec: time)
+    }
+    public init(timespec: timespec) {
+        self.init(rawValue: (.init(timespec.tv_sec), .init(timespec.tv_nsec)))
     }
 }
+
+#if canImport(Foundation)
+import Foundation
+
+extension Timestamp  {
+    public init(from date: Date) {
+        let timeInterval = date.timeIntervalSince1970
+        self.init(
+            rawValue: (
+                .init(timeInterval.magnitude),
+                .init(
+                    timeInterval
+                        .magnitude
+                        .truncatingRemainder(dividingBy: 1) * 1000_000_000
+                )
+            )
+        )
+    }
+}
+#endif
