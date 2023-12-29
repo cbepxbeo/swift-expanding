@@ -32,8 +32,8 @@
 #endif
 
 public struct Timestamp {
-    public init(rawValue value: timespec) {
-        self.rawValue = (.init(value.tv_sec), .init(value.tv_nsec))
+    init(rawValue: (Int64, Int64)) {
+        self.rawValue = rawValue
     }
     let rawValue: (Int64, Int64)
 }
