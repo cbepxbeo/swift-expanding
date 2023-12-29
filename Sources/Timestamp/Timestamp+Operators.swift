@@ -25,15 +25,15 @@
 
 extension Timestamp {
     public static func > (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.receive() > rhs.receive()
+        lhs.rawValue > rhs.rawValue
     }
     public static func < (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.receive() < rhs.receive()
+        lhs.rawValue < rhs.rawValue
     }
     public static func <= (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.receive() <= rhs.receive()
+        lhs.rawValue <= rhs.rawValue
     }
     public static func >= (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.receive() >= rhs.receive()
+        lhs.rawValue >= rhs.rawValue
     }
 }
