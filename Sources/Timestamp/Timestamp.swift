@@ -23,14 +23,6 @@
  
  */
 
-#if canImport(Darwin)
-  import Darwin
-#elseif canImport(Glibc)
-  import Glibc
-#else
-  #error("Unsupported platform")
-#endif
-
 public struct Timestamp {
     init(rawValue: (Int64, Int64)) {
         self.rawValue = rawValue
