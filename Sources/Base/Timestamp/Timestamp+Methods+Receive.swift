@@ -24,15 +24,17 @@
  */
 
 extension Timestamp {
-    public func receive(_ option: Self.Option) -> Int64 {
-        switch option {
-        case .seconds:
-                self.rawValue.0
-        case .nanoseconds:
-                self.rawValue.1
+    public func receive(
+        _ output: Self.OutputOption,
+        _ option: Self.Option = .timeIntervalSince1970) -> Int {
+            switch output {
+            case .seconds:
+                return .init(self.rawValue + option.timeIntervalOption.timeInterval)
+            case .nanoseconds:
+                let fraction = self.rawValue
+                    .magnitude
+                    .truncatingRemainder(dividingBy: 1)
+                return .init(fraction * 1_000_000) * 1000
+            }
         }
-    }
-    public func receive() -> Double {
-        Double(self.rawValue.0) + Double(self.rawValue.1) / 1_000_000_000
-    }
 }
