@@ -28,10 +28,12 @@ extension Timestamp {
         case between1970AndReferenceDate
         case sinceReferenceDate
         
+        static let timeIntervalbetween1970AndReferenceDate: TimeInterval = 978307200.0
+        
         var timeInterval: TimeInterval {
             switch self {
             case .between1970AndReferenceDate:
-                978307200.0
+                Self.timeIntervalbetween1970AndReferenceDate
             case .sinceReferenceDate:
                 0
             }
