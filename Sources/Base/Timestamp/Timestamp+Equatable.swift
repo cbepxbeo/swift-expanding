@@ -15,7 +15,7 @@
  |  File: Timestamp+Equatable.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -25,6 +25,6 @@
 
 extension Timestamp : Equatable {
     public static func == (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.rawValue == rhs.rawValue
+        lhs.receive(.timeIntervalSince) == rhs.receive(.timeIntervalSince)
     }
 }
