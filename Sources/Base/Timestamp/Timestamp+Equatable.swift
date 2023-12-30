@@ -25,6 +25,6 @@
 
 extension Timestamp : Equatable {
     public static func == (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.receive(.timeIntervalSince) == rhs.receive(.timeIntervalSince)
+        lhs.receive(option: .timeIntervalSince) == rhs.receive(option: .timeIntervalSince)
     }
 }
