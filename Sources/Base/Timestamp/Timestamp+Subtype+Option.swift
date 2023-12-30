@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Option.swift
+ |  File: Timestamp+Subtype+Option.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
  |  Last update: December 29th, 2023
