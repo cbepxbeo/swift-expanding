@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Method+Distant.swift
+ |  File: Timestamp+Static+Method+Distant.swift
  |  Created by: Egor Boyko
  |  Date: December 30th, 2023
  |  Last update: December 30th, 2023
@@ -24,7 +24,7 @@
  */
 
 extension Timestamp {
-    public func distant(){
+    public static func distant(){
         
     }
 }
