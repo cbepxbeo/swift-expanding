@@ -37,7 +37,8 @@ extension Timestamp {
         lhs.receive(option: .timeIntervalSince) >= rhs.receive(option: .timeIntervalSince)
     }
     public static func + (lhs: Timestamp, rhs: Timestamp) -> Timestamp {
-        .init(rawValue: lhs.rawValue + rhs.rawValue)
+        let zero = Timestamp.Distant.zero
+        return .init(rawValue: lhs.rawValue + rhs.rawValue + -zero)
     }
     public static func - (lhs: Timestamp, rhs: Timestamp) -> Timestamp {
         .init(rawValue: lhs.rawValue - rhs.rawValue)
