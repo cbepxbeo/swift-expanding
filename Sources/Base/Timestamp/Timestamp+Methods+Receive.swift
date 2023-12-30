@@ -33,6 +33,20 @@ extension Timestamp {
             case .microseconds:
                 let fraction = self.rawValue - .init(Int(self.rawValue))
                 return .init(fraction * 1_000_000)
+            case .preciseMicroseconds:
+                let spited = "\(self.rawValue)".split(separator: ".")
+                guard spited.count > 1 else {
+                    return 0
+                }
+                let result = Int(spited[1]) ?? 0
+                print("Резултат = \(result)")
+                if result < 100_000 {
+                    return result * 10
+                } else if result >= 1_000_000 {
+                    return result / 10
+                } else {
+                    return result
+                }
             }
         }
     
