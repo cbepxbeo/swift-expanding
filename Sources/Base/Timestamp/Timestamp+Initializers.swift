@@ -27,6 +27,9 @@ extension Timestamp {
     public init(){
         self.init(rawValue: Self.currentRealTime())
     }
+    public init(timeIntervalSinceReferenceDate timeInterval: TimeInterval) {
+        self.init(rawValue: timeInterval)
+    }
 }
 
 #if canImport(Foundation)
