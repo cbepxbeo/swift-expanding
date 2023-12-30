@@ -24,7 +24,7 @@
  */
 
 extension Timestamp {
-    public static func distant(){
-        
+    public static func distant(_ option: Self.Distant) -> Timestamp {
+        .init(timeIntervalSinceReferenceDate: option.timeInterval)
     }
 }
