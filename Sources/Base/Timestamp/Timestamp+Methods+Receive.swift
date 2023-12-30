@@ -25,7 +25,7 @@
 
 extension Timestamp {
     public func receive(
-        _ output: Self.OutputOption,
+        output: Self.OutputOption,
         _ option: Self.Option = .timeIntervalSince1970) -> Int {
             switch output {
             case .seconds:
@@ -36,5 +36,10 @@ extension Timestamp {
                     .truncatingRemainder(dividingBy: 1)
                 return .init(fraction * 1_000_000) * 1000
             }
+        }
+    
+    public func receive(
+        option: Self.Option) -> TimeInterval {
+            self.rawValue + option.timeIntervalOption.timeInterval
         }
 }
