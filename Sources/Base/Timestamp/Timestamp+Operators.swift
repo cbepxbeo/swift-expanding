@@ -25,33 +25,21 @@
 
 extension Timestamp {
     public static func > (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.rawValue > rhs.rawValue
+        lhs.receive(option: .timeIntervalSince) > rhs.receive(option: .timeIntervalSince)
     }
     public static func < (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.rawValue < rhs.rawValue
+        lhs.receive(option: .timeIntervalSince) < rhs.receive(option: .timeIntervalSince)
     }
     public static func <= (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.rawValue <= rhs.rawValue
+        lhs.receive(option: .timeIntervalSince) <= rhs.receive(option: .timeIntervalSince)
     }
     public static func >= (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.rawValue >= rhs.rawValue
+        lhs.receive(option: .timeIntervalSince) >= rhs.receive(option: .timeIntervalSince)
     }
     public static func + (lhs: Timestamp, rhs: Timestamp) -> Timestamp {
-        let a = lhs.rawValue.0 + rhs.rawValue.0
-        let b = lhs.rawValue.1 + rhs.rawValue.1
-        if b > 1_000_000_000 {
-            return .init(rawValue: (a + 1, b - 1_000_000_000))
-        } else {
-            return .init(rawValue: (a, b))
-        }
+        .init(rawValue: lhs.rawValue + rhs.rawValue)
     }
     public static func - (lhs: Timestamp, rhs: Timestamp) -> Timestamp {
-        let a = lhs.rawValue.0 - rhs.rawValue.0
-        let b = lhs.rawValue.1 - rhs.rawValue.1
-        if b < 0 {
-            return .init(rawValue: (a - 1, b + 1_000_000_000))
-        } else {
-            return .init(rawValue: (a, b))
-        }
+        .init(rawValue: lhs.rawValue - rhs.rawValue)
     }
 }
