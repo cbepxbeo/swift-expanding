@@ -26,11 +26,14 @@
 extension Timestamp {
     public enum Option {
         case timeIntervalSince1970
+        case timeIntervalSince
         
         var timeIntervalOption: Timestamp.TimeIntervalOption {
             switch self {
             case .timeIntervalSince1970:
                 return .between1970AndReferenceDate
+            case .timeIntervalSince:
+                return .sinceReferenceDate
             }
         }
     }
