@@ -30,11 +30,9 @@ extension Timestamp {
             switch output {
             case .seconds:
                 return .init(self.rawValue + option.timeIntervalOption.timeInterval)
-            case .nanoseconds:
-                let fraction = self.rawValue
-                    .magnitude
-                    .truncatingRemainder(dividingBy: 1)
-                return .init(fraction * 1_000_000) * 1000
+            case .microseconds:
+                let fraction = self.rawValue - .init(Int(self.rawValue))
+                return .init(fraction * 1_000_000)
             }
         }
     
