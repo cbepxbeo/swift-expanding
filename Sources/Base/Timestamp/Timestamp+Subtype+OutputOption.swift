@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Subtype+Option.swift
+ |  File: Timestamp+Subtype+OutputOption.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -24,7 +24,7 @@
  */
 
 extension Timestamp {
-    public enum Option {
+    public enum OutputOption {
         case seconds
         case nanoseconds
     }
