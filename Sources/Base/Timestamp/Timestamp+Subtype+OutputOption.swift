@@ -27,6 +27,5 @@ extension Timestamp {
     public enum OutputOption {
         case seconds
         case microseconds
-        case preciseMicroseconds
     }
 }
