@@ -28,6 +28,8 @@ extension Timestamp {
         case future
         case past
         
+        static let zero: TimeInterval = -63145526400
+        
         var timeInterval: TimeInterval {
             switch self {
             case .future:
