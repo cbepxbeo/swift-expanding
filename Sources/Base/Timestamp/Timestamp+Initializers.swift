@@ -15,7 +15,7 @@
  |  File: Timestamp+Initializers.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,22 +23,9 @@
  
  */
 
-#if canImport(Darwin)
-  import Darwin
-#elseif canImport(Glibc)
-  import Glibc
-#else
-  #error("Unsupported platform")
-#endif
-
 extension Timestamp {
     public init(){
-        var time = timespec()
-        clock_gettime(CLOCK_REALTIME, &time)
-        self.init(timespec: time)
-    }
-    public init(timespec: timespec) {
-        self.init(rawValue: (.init(timespec.tv_sec), .init(timespec.tv_nsec)))
+        self.init(rawValue: Self.currentRealTime())
     }
 }
 
@@ -47,16 +34,7 @@ import Foundation
 
 extension Timestamp  {
     public init(from date: Date) {
-        let timeInterval = date.timeIntervalSince1970
-        let fraction = timeInterval
-            .magnitude
-            .truncatingRemainder(dividingBy: 1)
-        self.init(
-            rawValue: (
-                .init(timeInterval.magnitude),
-                .init(fraction * 1_000_000) * 1000
-            )
-        )
+        self.init(rawValue: date.timeIntervalSince1970)
     }
 }
 #endif
