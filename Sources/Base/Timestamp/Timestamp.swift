@@ -15,7 +15,7 @@
  |  File: Timestamp.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,17 +23,6 @@
  
  */
 
-#if canImport(Darwin)
-  import Darwin
-#elseif canImport(Glibc)
-  import Glibc
-#else
-  #error("Unsupported platform")
-#endif
-
 public struct Timestamp {
-    init(rawValue: (Int64, Int64)) {
-        self.rawValue = rawValue
-    }
-    let rawValue: (Int64, Int64)
+    var rawValue: TimeInterval
 }
