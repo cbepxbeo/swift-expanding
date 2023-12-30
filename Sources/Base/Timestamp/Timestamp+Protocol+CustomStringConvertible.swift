@@ -32,15 +32,19 @@ import WinSDK
 #endif
 
 extension Timestamp: CustomStringConvertible {
+    
+    static var unavailableDescription: String { "<description unavailable>" }
+    
     public var description: String {
 #if canImport(Glibc)
         let format = "%4Y-%m-%d %H:%M:%S +0000"
 #else
         let format = "%Y-%m-%d %H:%M:%S +0000"
 #endif
-        let unavailable = "<description unavailable>"
-        guard self >= Self.distant(.past),  self <= Self.distant(.future) else {
-            return unavailable
+        let unavailable = Self.unavailableDescription
+        guard self.rawValue <= Self.Distant.veryFuture,
+              self.rawValue >= Self.Distant.zero else {
+                return unavailable
         }
         var info = tm()
 #if os(Windows)
