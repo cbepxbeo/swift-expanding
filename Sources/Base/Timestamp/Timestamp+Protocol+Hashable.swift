@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+CustomDebugStringConvertible.swift
+ |  File: Timestamp+Protocol+Hashable.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,8 +23,8 @@
  
  */
 
-extension Timestamp: CustomDebugStringConvertible {
-    public var debugDescription: String {
-        self.description
+extension Timestamp : Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.rawValue)
     }
 }

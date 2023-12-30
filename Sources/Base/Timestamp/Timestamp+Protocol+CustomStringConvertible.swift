@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+CustomStringConvertible.swift
+ |  File: Timestamp+Protocol+CustomStringConvertible.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
  |  Last update: December 30th, 2023
