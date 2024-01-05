@@ -23,5 +23,29 @@
  
  */
 
-extension Matrix {}
+extension Matrix {
+    public func index(x xCoordinate: Int, y yCoordinate: Int) throws -> Int {
+        try self.check()
+        
+        guard xCoordinate != 0 else {
+            throw MatrixError.zeroCoordinate(message: "x: \(xCoordinate)")
+        }
+        guard yCoordinate != 0 else {
+            throw MatrixError.zeroCoordinate(message: "y: \(yCoordinate)")
+        }
+        guard xCoordinate > 0 else {
+            throw MatrixError.negativeCoordinate(message: "x: \(xCoordinate)")
+        }
+        guard yCoordinate > 0 else {
+            throw MatrixError.negativeCoordinate(message: "y: \(yCoordinate)")
+        }
+        guard xCoordinate > self.column else {
+            throw MatrixError.columnOfRange
+        }
+        guard yCoordinate > self.row else {
+            throw MatrixError.rowOfRange
+        }
+        return xCoordinate - 1 + (self.column * (yCoordinate - 1))
+    }
+}
 
