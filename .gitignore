@@ -9,3 +9,4 @@ DerivedData/
 .netrc
 .idea
 Package.resolved
+Sources/playground.swift
