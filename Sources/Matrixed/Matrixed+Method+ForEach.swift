@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix+Methods+Receive.swift
+ |  File: Matrixed+Method+ForEach.swift
  |  Created by: Egor Boyko
  |  Date: January 5th, 2024
- |  Last update: December 5th, 2024
+ |  Last update: January 6th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,5 +23,5 @@
  
  */
 
-extension Matrix {}
+extension Matrixed {}
 
