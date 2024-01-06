@@ -28,22 +28,22 @@ extension Matrixed {
         try self.check()
         
         guard xCoordinate != 0 else {
-            throw Matrix.Error.zeroCoordinate(message: "x: \(xCoordinate)")
+            throw MatrixError.zeroCoordinate(message: "x: \(xCoordinate)")
         }
         guard yCoordinate != 0 else {
-            throw Matrix.Error.zeroCoordinate(message: "y: \(yCoordinate)")
+            throw MatrixError.zeroCoordinate(message: "y: \(yCoordinate)")
         }
         guard xCoordinate > 0 else {
-            throw Matrix.Error.negativeCoordinate(message: "x: \(xCoordinate)")
+            throw MatrixError.negativeCoordinate(message: "x: \(xCoordinate)")
         }
         guard yCoordinate > 0 else {
-            throw Matrix.Error.negativeCoordinate(message: "y: \(yCoordinate)")
+            throw MatrixError.negativeCoordinate(message: "y: \(yCoordinate)")
         }
         guard xCoordinate > self.column else {
-            throw Matrix.Error.columnOfRange
+            throw MatrixError.columnOfRange
         }
         guard yCoordinate > self.row else {
-            throw Matrix.Error.rowOfRange
+            throw MatrixError.rowOfRange
         }
         return xCoordinate - 1 + (self.column * (yCoordinate - 1))
     }
