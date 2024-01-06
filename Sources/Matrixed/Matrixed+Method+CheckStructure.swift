@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Method+Check.swift
+ |  File: Matrixed+Method+CheckStructure.swift
  |  Created by: Egor Boyko
  |  Date: January 5th, 2024
  |  Last update: January 6th, 2024
@@ -24,7 +24,7 @@
  */
 
 extension Matrixed {
-    func check() throws {
+    func checkStructure() throws {
         if (self.row * self.column) != self.storage.count {
             throw MatrixError.wrongStructure
         }
