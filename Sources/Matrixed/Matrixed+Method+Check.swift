@@ -26,7 +26,7 @@
 extension Matrixed {
     func check() throws {
         if (self.row * self.column) != self.storage.count {
-            throw MatrixError.wrongStructure
+            throw Matrix.Error.wrongStructure
         }
     }
 }
