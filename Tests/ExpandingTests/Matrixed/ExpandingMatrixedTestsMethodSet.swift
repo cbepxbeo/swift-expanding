@@ -23,7 +23,7 @@ import XCTest
 @testable import Expanding
 
 final class ExpandingMatrixedTestsMethodSet: XCTestCase {
-    static let count = 5
+    static let count = 10
     let matrix = {
         let count = ExpandingMatrixedTestsMethodSet.count
         var matrix = MatrixTestInt(
@@ -68,6 +68,88 @@ final class ExpandingMatrixedTestsMethodSet: XCTestCase {
         do {
             try matrix.set(99, x: count, y: -1)
         } catch let error as MatrixError where error == .negativeCoordinate(message: ""){
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testBigXCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodSet.count
+        var output: Bool = false
+        do {
+            try matrix.set(99, x: count + 1, y: count)
+        } catch let error as MatrixError where error == .columnOfRange {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testBigYCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodSet.count
+        var output: Bool = false
+        do {
+            try matrix.set(99, x: count, y: count + 1)
+        } catch let error as MatrixError where error == .rowOfRange {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testZeroXCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodSet.count
+        var output = false
+        do {
+            try matrix.set(99, x: 0, y: count)
+        } catch let error as MatrixError where error == .zeroCoordinate(message: "") {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testZeroYCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodSet.count
+        var output: Bool = false
+        do {
+            try matrix.set(99, x: count, y: 0)
+        } catch let error as MatrixError where error == .zeroCoordinate(message: "") {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testSetAll() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodSet.count
+        let input = 77
+        var output = true
+        let range = 1...count
+        
+        for x in range {
+            for y in range {
+                try matrix.set(input, x: x, y: y)
+            }
+        }
+        
+        matrix.storage.forEach { value in
+            if value != input {
+                output = false
+            }
+        }
+        XCTAssert(output)
+    }
+    
+    
+    func testSetStructure() throws {
+        let count = 5
+        var matrix = MatrixTestInt(column: count, row: count, storage: [0])
+        var output: Bool = false
+        do {
+            try matrix.set(99, x: count, y: 0)
+        } catch let error as MatrixError where error == .wrongStructure(message: "") {
             output = true
         }
         XCTAssert(output)
