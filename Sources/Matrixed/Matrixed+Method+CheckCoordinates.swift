@@ -37,10 +37,10 @@ extension Matrixed {
         guard yCoordinate > 0 else {
             throw MatrixError.negativeCoordinate(message: "y: \(yCoordinate)")
         }
-        guard xCoordinate > self.column else {
+        guard xCoordinate <= self.column else {
             throw MatrixError.columnOfRange
         }
-        guard yCoordinate > self.row else {
+        guard yCoordinate <= self.row else {
             throw MatrixError.rowOfRange
         }
     }
