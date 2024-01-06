@@ -26,7 +26,8 @@
 extension Matrixed {
     func checkStructure() throws {
         if (self.row * self.column) != self.storage.count {
-            throw MatrixError.wrongStructure
+            throw MatrixError
+                .wrongStructure(message: "Incorrect construction")
         }
     }
 }
