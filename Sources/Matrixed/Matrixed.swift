@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix.swift
+ |  File: Matrixed.swift
  |  Created by: Egor Boyko
  |  Date: January 5th, 2024
  |  Last update: January 6th, 2024
@@ -23,5 +23,11 @@
  
  */
 
-public struct Matrix {}
+public protocol Matrixed: CustomStringConvertible, CustomDebugStringConvertible {
+    associatedtype Element
+    var column: Int { get }
+    var row: Int { get }
+    var storage: [Optional<Element>] { get }
+    init(column: Int, row: Int, storage: [Optional<Element>])
+}
 
