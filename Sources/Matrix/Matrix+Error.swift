@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: MatrixError.swift
+ |  File: Matrix+Error.swift
  |  Created by: Egor Boyko
  |  Date: January 5th, 2024
- |  Last update: December 5th, 2024
+ |  Last update: January 6th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,15 +23,17 @@
  
  */
 
-public enum MatrixError: Error {
-    case indexNotFound
-    case indexOfRange
-    case columnOfRange
-    case rowOfRange
-    case columnNotFound
-    case rowNotFound
-    case wrongStructure
-    case negativeCoordinate(message: String)
-    case zeroCoordinate(message: String)
+extension Matrix {
+    public enum Error: Swift.Error {
+        case indexNotFound
+        case indexOfRange
+        case columnOfRange
+        case rowOfRange
+        case columnNotFound
+        case rowNotFound
+        case wrongStructure
+        case negativeCoordinate(message: String)
+        case zeroCoordinate(message: String)
+    }
 }
 
