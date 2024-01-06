@@ -23,5 +23,14 @@
  
  */
 
-public struct Matrix {}
+public struct Matrix<Element : Hashable & Equatable>: Matrixed {
+    public var column: Int
+    public var row: Int
+    public var storage: [Optional<Element>]
+    public init(column: Int, row: Int, storage: [Optional<Element>]) {
+        self.column = column
+        self.row = row
+        self.storage = storage
+    }
+}
 
