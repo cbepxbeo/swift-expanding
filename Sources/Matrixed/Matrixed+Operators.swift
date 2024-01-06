@@ -25,9 +25,13 @@
 
 extension Matrixed where Element: SignedNumeric {
     public static func +(lhs: Self, rhs: Self) -> Self {
-        let row = max(lhs.row, rhs.row)
-        let column =  max(lhs.column, rhs.column)
-        var newMatrix: Self = .init(column: column, row: row, element: Self.Element.self)
+        var row = max(lhs.row, rhs.row)
+        var column =  max(lhs.column, rhs.column)
+        
+        if row < 1 { row = 1 }
+        
+        if column < 1 { column = 1 }
+        var newMatrix: Self = try! .init(column: column, row: row, element: Self.Element.self)
         
         try? lhs.forEach{ x, y, element in
             try? newMatrix.addTo(element ?? 0, x: x, y: y)
