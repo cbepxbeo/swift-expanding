@@ -23,5 +23,9 @@
  
  */
 
-extension Matrixed {}
+extension Matrixed {
+    public func receive(x xCoordinate: Int, y yCoordinate: Int) throws -> Optional<Element> {
+        try self.storage[self.index(x: xCoordinate, y: yCoordinate)]
+    }
+}
 
