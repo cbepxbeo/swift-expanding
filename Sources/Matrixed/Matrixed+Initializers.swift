@@ -24,8 +24,12 @@
  */
 
 extension Matrixed {
-    
-    
-    
+    public init(column: Int, row: Int, element type: Element.Type){
+        self.init(
+            column: column,
+            row: row,
+            storage: .init(repeating: Optional<Element>.none, count: column * row)
+        )
+    }
 }
 
