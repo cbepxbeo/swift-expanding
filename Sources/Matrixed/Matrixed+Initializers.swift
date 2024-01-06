@@ -31,5 +31,13 @@ extension Matrixed {
             storage: .init(repeating: Optional<Element>.none, count: column * row)
         )
     }
+    
+    public init(column: Int, row: Int, defaultValue value: Element){
+        self.init(
+            column: column,
+            row: row,
+            storage: .init(repeating: value, count: column * row)
+        )
+    }
 }
 
