@@ -24,16 +24,30 @@
  */
 
 extension Matrixed {
-    public init(column: Int, row: Int, element type: Element.Type){
-        self.init(
+    
+    static func checkColumnAndRowCount(column: Int, row: Int) throws {
+        guard column > 0 else {
+            throw MatrixError
+                .wrongStructure(message: "there cannot be less than one column")
+        }
+        guard row > 0 else {
+            throw MatrixError
+                .wrongStructure(message: "there cannot be less than one row")
+        }
+    }
+    
+    public init(column: Int, row: Int, element type: Element.Type) throws {
+        try Self.checkColumnAndRowCount(column: column, row: row)
+        try self.init(
             column: column,
             row: row,
             storage: .init(repeating: Optional<Element>.none, count: column * row)
         )
     }
 
-    public init(column: Int, row: Int, defaultValue value: Element){
-        self.init(
+    public init(column: Int, row: Int, defaultValue value: Element) throws{
+        try Self.checkColumnAndRowCount(column: column, row: row)
+        try self.init(
             column: column,
             row: row,
             storage: .init(repeating: value, count: column * row)
