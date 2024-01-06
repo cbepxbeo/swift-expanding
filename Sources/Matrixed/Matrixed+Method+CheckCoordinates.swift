@@ -12,9 +12,9 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Method+Index.swift
+ |  File: Matrixed+Method+CheckCoordinates.swift
  |  Created by: Egor Boyko
- |  Date: January 5th, 2024
+ |  Date: January 6th, 2024
  |  Last update: January 6th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
@@ -24,10 +24,27 @@
  */
 
 extension Matrixed {
-    public func index(x xCoordinate: Int, y yCoordinate: Int) throws -> Int {
-        try self.checkStructure()
-        try checkCoordinates(x: xCoordinate, y: yCoordinate)
-        return xCoordinate - 1 + (self.column * (yCoordinate - 1))
+    func checkCoordinates(x xCoordinate: Int, y yCoordinate: Int) throws {
+        guard xCoordinate != 0 else {
+            throw MatrixError.zeroCoordinate(message: "x: \(xCoordinate)")
+        }
+        guard yCoordinate != 0 else {
+            throw MatrixError.zeroCoordinate(message: "y: \(yCoordinate)")
+        }
+        guard xCoordinate > 0 else {
+            throw MatrixError.negativeCoordinate(message: "x: \(xCoordinate)")
+        }
+        guard yCoordinate > 0 else {
+            throw MatrixError.negativeCoordinate(message: "y: \(yCoordinate)")
+        }
+        guard xCoordinate > self.column else {
+            throw MatrixError.columnOfRange
+        }
+        guard yCoordinate > self.row else {
+            throw MatrixError.rowOfRange
+        }
     }
 }
+
+
 
