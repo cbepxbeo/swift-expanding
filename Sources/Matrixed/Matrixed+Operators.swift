@@ -29,14 +29,13 @@ extension Matrixed where Element: SignedNumeric {
         let column =  max(lhs.column, rhs.column)
         var newMatrix: Self = .init(column: column, row: row, element: Self.Element.self)
         
-        lhs.forEach{ x, y, value in
-            newMatrix.addTo(value, x: x, y: y)
+        try? lhs.forEach{ x, y, element in
+            try? newMatrix.addTo(element ?? 0, x: x, y: y)
         }
         
-        rhs.forEach { x, y, value in
-            newMatrix.addTo(value, x: x, y: y)
+        try? rhs.forEach { x, y, element in
+            try? newMatrix.addTo(element ?? 0, x: x, y: y)
         }
-
         return newMatrix
     }
 }

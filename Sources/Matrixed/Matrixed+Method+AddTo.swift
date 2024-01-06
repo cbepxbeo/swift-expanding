@@ -24,7 +24,7 @@
  */
 
 extension Matrixed where Element: SignedNumeric {
-    public mutating func addTo(value: Element, x xCoordinate: Int, y yCoordinate: Int) throws {
+    public mutating func addTo(_ value: Element, x xCoordinate: Int, y yCoordinate: Int) throws {
         let current = try self.receive(x: xCoordinate, y: yCoordinate)
         self.storage[xCoordinate - 1 + (self.column * (yCoordinate - 1))] = value + (current ?? 0)
     }
