@@ -27,7 +27,7 @@ public protocol Matrixed: CustomStringConvertible, CustomDebugStringConvertible 
     associatedtype Element
     var column: Int { get }
     var row: Int { get }
-    var storage: [Optional<Element>] { get }
+    var storage: [Optional<Element>] { get set }
     init(column: Int, row: Int, storage: [Optional<Element>])
 }
 
