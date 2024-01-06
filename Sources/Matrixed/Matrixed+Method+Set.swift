@@ -24,8 +24,9 @@
  */
 
 extension Matrixed {
-    public mutating func set(value: Element, x: Int, y: Int){
-        
+    public mutating func set(value: Element, x xCoordinate: Int, y yCoordinate: Int) throws {
+        let index = try self.index(x: xCoordinate, y: yCoordinate)
+        self.storage[index] = value
     }
 }
 
