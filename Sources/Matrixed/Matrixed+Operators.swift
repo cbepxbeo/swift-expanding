@@ -24,6 +24,20 @@
  */
 
 extension Matrixed where Element: SignedNumeric {
+    public static func +(lhs: Self, rhs: Self) -> Self {
+        let row = max(lhs.row, rhs.row)
+        let column =  max(lhs.column, rhs.column)
+        var newMatrix: Self = .init(column: column, row: row, element: Self.Element.self)
+        
+        lhs.forEach{ x, y, value in
+            newMatrix.addTo(value, x: x, y: y)
+        }
+        
+        rhs.forEach { x, y, value in
+            newMatrix.addTo(value, x: x, y: y)
+        }
 
+        return newMatrix
+    }
 }
 
