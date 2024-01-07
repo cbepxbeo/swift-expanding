@@ -24,13 +24,12 @@
  */
 
 public enum MatrixError: Error {
-    case indexNotFound
     case indexOfRange
     case columnOfRange
     case rowOfRange
     case columnNotFound
     case rowNotFound
-    case wrongStructure(message: String)
     case negativeCoordinate(message: String)
     case zeroCoordinate(message: String)
+    case wrongStructure(message: String)
 }

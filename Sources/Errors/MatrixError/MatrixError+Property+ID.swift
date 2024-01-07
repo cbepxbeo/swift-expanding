@@ -26,24 +26,22 @@
 extension MatrixError {
     var ID: Int {
         switch self {
-        case .indexNotFound:
-            1
         case .indexOfRange:
-            2
+            1
         case .columnOfRange:
-            3
+            2
         case .rowOfRange:
-            4
+            3
         case .columnNotFound:
-            5
+            4
         case .rowNotFound:
-            6
-        case .wrongStructure(_):
-            7
+            5
         case .negativeCoordinate(_):
-            8
+            6
         case .zeroCoordinate(_):
-            9
+            7
+        case .wrongStructure(_):
+            8
         }
     }
 }

@@ -28,7 +28,6 @@ extension Matrix {
         _ xCoordinate: Int,
         _ yCoordinate: Int,
         _ element: Optional<Element>) -> ()) throws {
-            try self.checkStructure()
             for currentRow in 1...self.row{
                 for currentColumn in 1...self.column {
                     let element = self.storage[currentColumn - 1 + (self.column * (currentRow - 1))]

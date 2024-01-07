@@ -29,7 +29,6 @@ extension Matrix {
     }
     
     public func receive(index: Int) throws -> Optional<Element> {
-        try self.checkStructure()
         if (index > self.storage.count - 1) || index < 0 {
             throw MatrixError.indexOfRange
         }
@@ -37,7 +36,6 @@ extension Matrix {
     }
     
     public func receive(row input: Int) throws -> [Optional<Element>] {
-        try self.checkStructure()
         try self.check(y: input)
         let start = self.column * (input - 1)
         let end = start + self.column
@@ -45,7 +43,6 @@ extension Matrix {
     }
     
     public func receive(column input: Int) throws -> [Optional<Element>] {
-        try self.checkStructure()
         try self.check(x: input)
         var temp: [Optional<Element>] = []
         for row in 1...self.row {

@@ -25,7 +25,6 @@
 
 extension Matrix {
     public func index(x xCoordinate: Int, y yCoordinate: Int) throws -> Int {
-        try self.checkStructure()
         try checkCoordinates(x: xCoordinate, y: yCoordinate)
         return xCoordinate - 1 + (self.column * (yCoordinate - 1))
     }
