@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: ExpandingMatrixedTestsShared.swift
+ |  File: ExpandingMatrixMethodReceiveRowTests.swift
  |  Created by: Egor Boyko
  |  Date: January 7th, 2023
  |---------------------------------------------------------------------------------------
@@ -22,15 +22,33 @@
 import XCTest
 @testable import Expanding
 
-final class ExpandingMatrixedTestsShared: XCTestCase {
- 
-    func testAddition() throws {
+final class ExpandingMatrixMethodReceiveRowTests: XCTestCase {
+    static let count = 10
+    
+    let matrix = {
+        let count = ExpandingMatrixMethodReceiveRowTests.count
+        var matrix = Matrix(
+            column: count,
+            row: count,
+            storage: (1...count * count).map{ $0 }
+        )
+        return matrix
+    }()
+    
+    func testRowAll() throws {
+        let matrix = self.matrix
+        let count = ExpandingMatrixMethodReceiveRowTests.count
+        let range = 1...self.matrix.row
+        var output = true
         
-        let inputA = (1...15).map{ $0 }
-        let inputB = (1...4).map{ $0 }
-        
-        let matrixA = Matrix(column: 5, row: 3, storage: inputA)
-        let matrixB = Matrix(column: 2, row: 2, storage: inputB)
-     
+        for row in range {
+            let array: [Int?] = (((row - 1) * count) + 1...row * count).map{ $0 }
+            let result = try matrix.receive(row: row)
+            if result != array {
+                output = false
+            }
+        }
+        XCTAssert(output)
     }
+    
 }
