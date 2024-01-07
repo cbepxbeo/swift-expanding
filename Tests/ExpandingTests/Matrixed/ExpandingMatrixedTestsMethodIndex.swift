@@ -56,7 +56,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     }
     
     func testNegativeXCoordinate() throws {
-        var matrix = self.matrix
+        let matrix = self.matrix
         let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
@@ -68,7 +68,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     }
     
     func testNegativeYCoordinate() throws {
-        var matrix = self.matrix
+        let matrix = self.matrix
         let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
@@ -80,7 +80,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     }
     
     func testBigXCoordinate() throws {
-        var matrix = self.matrix
+        let matrix = self.matrix
         let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
@@ -92,7 +92,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     }
     
     func testBigYCoordinate() throws {
-        var matrix = self.matrix
+        let matrix = self.matrix
         let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
@@ -104,7 +104,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     }
     
     func testZeroXCoordinate() throws {
-        var matrix = self.matrix
+        let matrix = self.matrix
         let count = ExpandingMatrixedTestsMethodIndex.count
         var output = false
         do {
@@ -116,7 +116,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     }
     
     func testZeroYCoordinate() throws {
-        var matrix = self.matrix
+        let matrix = self.matrix
         let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
@@ -129,7 +129,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     
     func testSetStructure() throws {
         let count = 5
-        var matrix = MatrixTestInt(column: count, row: count, storage: [0])
+        let matrix = MatrixTestInt(column: count, row: count, storage: [0])
         var output: Bool = false
         do {
             let _ = try matrix.index(x: count, y: 0)
