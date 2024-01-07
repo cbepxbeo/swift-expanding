@@ -35,5 +35,26 @@ extension Matrixed {
         }
         return self.storage[index]
     }
+    
+    public func receive(row input: Int) throws -> [Optional<Element>] {
+        try self.checkStructure()
+        try self.check(y: input)
+        let start = self.column * (input - 1)
+        let end = start + self.column
+        return .init(self.storage[start..<end])
+    }
+    
+    public func receive(column input: Int) throws -> [Optional<Element>] {
+        try self.checkStructure()
+        try self.check(x: input)
+        var temp: [Optional<Element>] = []
+        for row in 1...self.row {
+            temp.append(
+                self.storage[input - 1 + (self.column * (row - 1))]
+            )
+        }
+        return temp
+    }
+    
 }
 
