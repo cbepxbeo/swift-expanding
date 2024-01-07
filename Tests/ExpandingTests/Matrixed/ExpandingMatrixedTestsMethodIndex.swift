@@ -79,4 +79,63 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
         XCTAssert(output)
     }
     
+    func testBigXCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodIndex.count
+        var output: Bool = false
+        do {
+            let _ = try matrix.index(x: count + 1, y: count)
+        } catch let error as MatrixError where error == .columnOfRange {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testBigYCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodIndex.count
+        var output: Bool = false
+        do {
+            let _ = try matrix.index(x: count, y: count + 1)
+        } catch let error as MatrixError where error == .rowOfRange {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testZeroXCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodIndex.count
+        var output = false
+        do {
+            let _ = try matrix.index(x: 0, y: count)
+        } catch let error as MatrixError where error == .zeroCoordinate(message: "") {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testZeroYCoordinate() throws {
+        var matrix = self.matrix
+        let count = ExpandingMatrixedTestsMethodIndex.count
+        var output: Bool = false
+        do {
+            let _ = try matrix.index(x: count, y: 0)
+        } catch let error as MatrixError where error == .zeroCoordinate(message: "") {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    func testSetStructure() throws {
+        let count = 5
+        var matrix = MatrixTestInt(column: count, row: count, storage: [0])
+        var output: Bool = false
+        do {
+            let _ = try matrix.index(x: count, y: 0)
+        } catch let error as MatrixError where error == .wrongStructure(message: "") {
+            output = true
+        }
+        XCTAssert(output)
+    }
 }
