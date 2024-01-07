@@ -25,8 +25,8 @@
 
 extension Matrix where Element: SignedNumeric {
     public static func +(lhs: Self, rhs: Self) -> Self {
-        var row = max(lhs.row, rhs.row)
-        var column =  max(lhs.column, rhs.column)
+        var row = Swift.max(lhs.row, rhs.row)
+        var column =  Swift.max(lhs.column, rhs.column)
         
         if row < 1 { row = 1 }
         
