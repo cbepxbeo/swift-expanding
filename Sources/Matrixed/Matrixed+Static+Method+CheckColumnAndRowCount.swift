@@ -12,9 +12,9 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Initializers.swift
+ |  File: Matrixed+Static+Method+CheckColumnAndRowCount.swift
  |  Created by: Egor Boyko
- |  Date: January 6th, 2024
+ |  Date: January 5th, 2024
  |  Last update: January 6th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
@@ -24,22 +24,15 @@
  */
 
 extension Matrixed {
-    public init(column: Int, row: Int, element type: Element.Type) throws {
-        try Self.checkColumnAndRowCount(column: column, row: row)
-        try self.init(
-            column: column,
-            row: row,
-            storage: .init(repeating: Optional<Element>.none, count: column * row)
-        )
-    }
-
-    public init(column: Int, row: Int, defaultValue value: Element) throws{
-        try Self.checkColumnAndRowCount(column: column, row: row)
-        try self.init(
-            column: column,
-            row: row,
-            storage: .init(repeating: value, count: column * row)
-        )
+    static func checkColumnAndRowCount(column: Int, row: Int) throws {
+        guard column > 0 else {
+            throw MatrixError
+                .wrongStructure(message: "there cannot be less than one column")
+        }
+        guard row > 0 else {
+            throw MatrixError
+                .wrongStructure(message: "there cannot be less than one row")
+        }
     }
 }
 
