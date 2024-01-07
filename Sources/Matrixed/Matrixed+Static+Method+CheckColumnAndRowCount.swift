@@ -14,8 +14,8 @@
  |---------------------------------------------------------------------------------------
  |  File: Matrixed+Static+Method+CheckColumnAndRowCount.swift
  |  Created by: Egor Boyko
- |  Date: January 5th, 2024
- |  Last update: January 6th, 2024
+ |  Date: January 7th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
