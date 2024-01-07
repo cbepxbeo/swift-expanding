@@ -26,7 +26,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     static let count = 10
     
     let matrix = {
-        let count = ExpandingMatrixedTestsMethodSet.count
+        let count = ExpandingMatrixedTestsMethodIndex.count
         var matrix = MatrixTestInt(
             column: count,
             row: count,
@@ -37,7 +37,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     
     func testIndexAll() throws {
         var matrix = self.matrix
-        let count = ExpandingMatrixedTestsMethodSet.count
+        let count = ExpandingMatrixedTestsMethodIndex.count
         let range = 1...count
         var output = true
         
@@ -57,7 +57,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     
     func testNegativeXCoordinate() throws {
         var matrix = self.matrix
-        let count = ExpandingMatrixedTestsMethodSet.count
+        let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
             let _ = try matrix.index(x: -1, y: count)
@@ -69,7 +69,7 @@ final class ExpandingMatrixedTestsMethodIndex: XCTestCase {
     
     func testNegativeYCoordinate() throws {
         var matrix = self.matrix
-        let count = ExpandingMatrixedTestsMethodSet.count
+        let count = ExpandingMatrixedTestsMethodIndex.count
         var output: Bool = false
         do {
             let _ = try matrix.index(x: count, y: -1)
