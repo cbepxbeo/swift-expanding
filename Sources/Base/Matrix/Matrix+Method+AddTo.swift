@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Method+AddTo.swift
+ |  File: Matrix+Method+AddTo.swift
  |  Created by: Egor Boyko
  |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,7 +23,7 @@
  
  */
 
-extension Matrixed where Element: SignedNumeric {
+extension Matrix where Element: SignedNumeric {
     public mutating func addTo(_ value: Element, x xCoordinate: Int, y yCoordinate: Int) throws {
         let current = try self.receive(x: xCoordinate, y: yCoordinate)
         self.storage[xCoordinate - 1 + (self.column * (yCoordinate - 1))] = value + (current ?? 0)

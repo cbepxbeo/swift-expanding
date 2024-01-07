@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Method+CheckCoordinates.swift
+ |  File: Matrix+Method+Set.swift
  |  Created by: Egor Boyko
  |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,12 +23,10 @@
  
  */
 
-extension Matrixed {
-    func checkCoordinates(x xCoordinate: Int, y yCoordinate: Int) throws {
-        try self.check(x: xCoordinate)
-        try self.check(y: yCoordinate)
+extension Matrix {
+    public mutating func set(_ value: Element, x xCoordinate: Int, y yCoordinate: Int) throws {
+        let index = try self.index(x: xCoordinate, y: yCoordinate)
+        self.storage[index] = value
     }
 }
-
-
 

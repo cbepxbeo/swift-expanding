@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Methods+Receive.swift
+ |  File: Matrix+Methods+Receive.swift
  |  Created by: Egor Boyko
  |  Date: January 5th, 2024
- |  Last update: January 6th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,7 +23,7 @@
  
  */
 
-extension Matrixed {
+extension Matrix {
     public func receive(x xCoordinate: Int, y yCoordinate: Int) throws -> Optional<Element> {
         try self.storage[self.index(x: xCoordinate, y: yCoordinate)]
     }

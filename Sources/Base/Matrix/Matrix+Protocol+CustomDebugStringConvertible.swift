@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Implementation+CustomStringConvertible.swift
+ |  File: Matrix+Protocol+CustomDebugStringConvertible.swift
  |  Created by: Egor Boyko
  |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,32 +23,8 @@
  
  */
 
-extension Matrixed {
-    public var description: String {
-        var str: String = ""
-        str += "Matrixed: \n"
-        str += "Stored values type: \(Element.self) \n"
-        str += "Rows: \(self.row) \n"
-        str += "Columns: \(self.column) \n"
-        str += "________ \n \n"
-        
-        for currentColumn in 1...self.row {
-            str += currentColumn > 9 ?
-                "Row \(currentColumn): \t|" : "Row \(currentColumn): \t \t|"
-            for currentRow in 1...self.column {
-                do {
-                    let result = try self.receive(x: currentRow, y: currentColumn)
-                    if result != nil {
-                        str += " \(result!) |"
-                    } else {
-                        str += " nil |"
-                    }
-                } catch {
-                    str += " error |"
-                }
-            }
-            str += " \n"
-        }
-        return str
+extension Matrix: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        self.description
     }
 }

@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Implementation+CustomDebugStringConvertible.swift
+ |  File: Matrix+Method+ForEach.swift
  |  Created by: Egor Boyko
- |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Date: January 5th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,8 +23,18 @@
  
  */
 
-extension Matrixed {
-    public var debugDescription: String {
-        self.description
-    }
+extension Matrix {
+    public func forEach(handler: @escaping (
+        _ xCoordinate: Int,
+        _ yCoordinate: Int,
+        _ element: Optional<Element>) -> ()) throws {
+            try self.checkStructure()
+            for currentRow in 1...self.row{
+                for currentColumn in 1...self.column {
+                    let element = self.storage[currentColumn - 1 + (self.column * (currentRow - 1))]
+                    handler(currentColumn, currentRow, element)
+                }
+            }
+        }
 }
+

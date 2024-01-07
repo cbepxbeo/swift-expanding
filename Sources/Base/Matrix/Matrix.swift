@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Implementation+Hashable.swift
+ |  File: Matrix.swift
  |  Created by: Egor Boyko
- |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Date: January 5th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,9 +23,9 @@
  
  */
 
-extension Matrixed where Element: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        self.storage.hash(into: &hasher)
-    }
+public struct Matrix<Element> {
+    internal(set) public var column: Int
+    internal(set) public var row: Int
+    var storage: [Optional<Element>]
 }
 

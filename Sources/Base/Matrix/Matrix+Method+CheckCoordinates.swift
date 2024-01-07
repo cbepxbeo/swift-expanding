@@ -12,9 +12,9 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Static+Method+CheckColumnAndRowCount.swift
+ |  File: Matrix+Method+CheckCoordinates.swift
  |  Created by: Egor Boyko
- |  Date: January 7th, 2024
+ |  Date: January 6th, 2024
  |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
@@ -23,16 +23,12 @@
  
  */
 
-extension Matrixed {
-    static func checkColumnAndRowCount(column: Int, row: Int) throws {
-        guard column > 0 else {
-            throw MatrixError
-                .wrongStructure(message: "there cannot be less than one column")
-        }
-        guard row > 0 else {
-            throw MatrixError
-                .wrongStructure(message: "there cannot be less than one row")
-        }
+extension Matrix {
+    func checkCoordinates(x xCoordinate: Int, y yCoordinate: Int) throws {
+        try self.check(x: xCoordinate)
+        try self.check(y: yCoordinate)
     }
 }
+
+
 

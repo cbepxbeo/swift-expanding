@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Implementation+Equatable.swift
+ |  File: Matrix+Static+Method+CheckColumnAndRowCount.swift
  |  Created by: Egor Boyko
- |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Date: January 7th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,8 +23,16 @@
  
  */
 
-extension Matrixed where Element: Equatable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.storage == rhs.storage
+extension Matrix {
+    static func checkColumnAndRowCount(column: Int, row: Int) throws {
+        guard column > 0 else {
+            throw MatrixError
+                .wrongStructure(message: "there cannot be less than one column")
+        }
+        guard row > 0 else {
+            throw MatrixError
+                .wrongStructure(message: "there cannot be less than one row")
+        }
     }
 }
+

@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrixed+Initializers.swift
+ |  File: Matrix+Methods+Check.swift
  |  Created by: Egor Boyko
- |  Date: January 6th, 2024
- |  Last update: January 6th, 2024
+ |  Date: January 7th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,23 +23,30 @@
  
  */
 
-extension Matrixed {
-    public init(column: Int, row: Int, element type: Element.Type) throws {
-        try Self.checkColumnAndRowCount(column: column, row: row)
-        try self.init(
-            column: column,
-            row: row,
-            storage: .init(repeating: Optional<Element>.none, count: column * row)
-        )
+extension Matrix {
+    func check(x xCoordinate: Int) throws {
+        guard xCoordinate != 0 else {
+            throw MatrixError.zeroCoordinate(message: "x: \(xCoordinate)")
+        }
+        guard xCoordinate > 0 else {
+            throw MatrixError.negativeCoordinate(message: "x: \(xCoordinate)")
+        }
+        guard xCoordinate <= self.column else {
+            throw MatrixError.columnOfRange
+        }
     }
-
-    public init(column: Int, row: Int, defaultValue value: Element) throws{
-        try Self.checkColumnAndRowCount(column: column, row: row)
-        try self.init(
-            column: column,
-            row: row,
-            storage: .init(repeating: value, count: column * row)
-        )
+    func check(y yCoordinate: Int) throws {
+        guard yCoordinate != 0 else {
+            throw MatrixError.zeroCoordinate(message: "y: \(yCoordinate)")
+        }
+        guard yCoordinate > 0 else {
+            throw MatrixError.negativeCoordinate(message: "y: \(yCoordinate)")
+        }
+        guard yCoordinate <= self.row else {
+            throw MatrixError.rowOfRange
+        }
     }
 }
+
+
 
