@@ -24,4 +24,13 @@ import XCTest
 
 final class ExpandingMatrixedTestsShared: XCTestCase {
  
+    func testAddition() throws {
+        
+        let inputA = (1...15).map{ $0 }
+        let inputB = (1...4).map{ $0 }
+        
+        let matrixA = MatrixTestInt(column: 5, row: 3, storage: inputA)
+        let matrixB = MatrixTestInt(column: 2, row: 2, storage: inputB)
+     
+    }
 }
