@@ -23,8 +23,8 @@
  
  */
 
-public protocol Matrixed: Hashable, Equatable, CustomStringConvertible, CustomDebugStringConvertible {
-    associatedtype Element
+public protocol Matrixed: Hashable, CustomStringConvertible, CustomDebugStringConvertible {
+    associatedtype Element : Hashable
     var column: Int { get }
     var row: Int { get }
     var storage: [Optional<Element>] { get set }

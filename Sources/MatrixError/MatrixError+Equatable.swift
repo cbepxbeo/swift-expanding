@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix.swift
+ |  File: MatrixError+Equatable.swift
  |  Created by: Egor Boyko
- |  Date: January 5th, 2024
- |  Last update: January 6th, 2024
+ |  Date: January 7th, 2024
+ |  Last update: January 7th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,14 +23,10 @@
  
  */
 
-public struct Matrix<Element : Hashable>: Matrixed {
-    public var column: Int
-    public var row: Int
-    public var storage: [Optional<Element>]
-    public init(column: Int, row: Int, storage: [Optional<Element>]) {
-        self.column = column
-        self.row = row
-        self.storage = storage
+extension MatrixError: Equatable {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.ID == rhs.ID
     }
 }
+
 

@@ -30,7 +30,7 @@ public enum MatrixError: Error {
     case rowOfRange
     case columnNotFound
     case rowNotFound
-    case wrongStructure
+    case wrongStructure(message: String)
     case negativeCoordinate(message: String)
     case zeroCoordinate(message: String)
 }
