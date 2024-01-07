@@ -128,8 +128,8 @@ final class ExpandingMatrixedTestsMethodSet: XCTestCase {
         var output = true
         let range = 1...count
         
-        for x in range {
-            for y in range {
+        for y in range {
+            for x in range {
                 try matrix.set(input, x: x, y: y)
             }
         }
