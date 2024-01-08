@@ -25,9 +25,7 @@
 
 extension Matrix {
     public func coordinates(from index: Int) throws -> (x: Int, y: Int) {
-        if (index > self.storage.count - 1) || index < 0 {
-            throw MatrixError.indexOfRange
-        }
+        try self.check(index: index)
         if index <= self.column - 1 {
             return (index + 1, 1)
         } else {
