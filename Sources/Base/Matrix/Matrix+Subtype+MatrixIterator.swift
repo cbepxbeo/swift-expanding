@@ -26,28 +26,23 @@
 extension Matrix   {
     public struct MatrixIterator<T>: IteratorProtocol {
         public typealias Element = (x: Int, y: Int, element: T?)
+        init(matrix: Matrix<T>) {
+            self.matrix = matrix
+            self.position = matrix.storage.startIndex
+        }
         
         let matrix: Matrix<T>
-        var index: Int?
-        
-        func nextIndex(for index: Int?) -> Int? {
-            if let index = index, index < self.matrix.storage.count - 1 {
-                return index + 1
-            }
-            if index == nil, !self.matrix.storage.isEmpty {
-                return 0
-            }
-            return nil
-        }
+        var position: Int
+
         
         public mutating func next() -> Element? {
-            if let index = self.nextIndex(for: self.index),
-               let coordinates = try? self.matrix.coordinates(from: index) {
-                self.index = index
-                return (coordinates.x, coordinates.y, self.matrix.storage[index])
+            guard self.position != self.matrix.storage.endIndex,
+                  let coordinates = try? self.matrix.coordinates(from: self.position) else {
+                return nil
             }
-            return nil
+            let element = self.matrix.storage[self.position]
+            self.matrix.storage.formIndex(after: &self.position)
+            return (coordinates.x, coordinates.y, element)
         }
     }
-    
 }
