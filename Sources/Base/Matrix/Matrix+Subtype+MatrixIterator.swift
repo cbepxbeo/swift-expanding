@@ -27,9 +27,7 @@ extension Matrix   {
     public struct MatrixIterator<T>: IteratorProtocol {
         public typealias Element = (x: Int, y: Int, element: T?)
         
-        @usableFromInline
         let matrix: Matrix<T>
-        @usableFromInline
         var position: Int
         
         init(matrix: Matrix<T>) {
@@ -37,8 +35,6 @@ extension Matrix   {
             self.position = matrix.storage.startIndex
         }
 
-        @inlinable
-        @inline(__always)
         public mutating func next() -> Element? {
             guard self.position != self.matrix.storage.endIndex,
                   let coordinates = try? self.matrix.coordinates(from: self.position) else {
