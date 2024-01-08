@@ -24,7 +24,9 @@
  */
 
 extension Matrix {
-    func check(x xCoordinate: Int) throws {
+    
+    @discardableResult
+    public func check(x xCoordinate: Int) throws -> Bool{
         guard xCoordinate != 0 else {
             throw MatrixError.zeroCoordinate(message: "x: \(xCoordinate)")
         }
@@ -34,8 +36,11 @@ extension Matrix {
         guard xCoordinate <= self.column else {
             throw MatrixError.columnOfRange
         }
+        return true
     }
-    func check(y yCoordinate: Int) throws {
+    
+    @discardableResult
+    public func check(y yCoordinate: Int) throws -> Bool{
         guard yCoordinate != 0 else {
             throw MatrixError.zeroCoordinate(message: "y: \(yCoordinate)")
         }
@@ -45,6 +50,15 @@ extension Matrix {
         guard yCoordinate <= self.row else {
             throw MatrixError.rowOfRange
         }
+        return true
+    }
+    
+    @discardableResult
+    public func check(index: Int) throws -> Bool{
+        if (index > self.storage.count - 1) || index < 0 {
+            throw MatrixError.indexOfRange
+        }
+        return true
     }
 }
 
