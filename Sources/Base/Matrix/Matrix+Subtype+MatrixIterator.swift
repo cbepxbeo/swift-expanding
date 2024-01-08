@@ -26,15 +26,19 @@
 extension Matrix   {
     public struct MatrixIterator<T>: IteratorProtocol {
         public typealias Element = (x: Int, y: Int, element: T?)
+        
+        @usableFromInline
+        let matrix: Matrix<T>
+        @usableFromInline
+        var position: Int
+        
         init(matrix: Matrix<T>) {
             self.matrix = matrix
             self.position = matrix.storage.startIndex
         }
-        
-        let matrix: Matrix<T>
-        var position: Int
 
-        
+        @inlinable
+        @inline(__always)
         public mutating func next() -> Element? {
             guard self.position != self.matrix.storage.endIndex,
                   let coordinates = try? self.matrix.coordinates(from: self.position) else {
@@ -45,4 +49,5 @@ extension Matrix   {
             return (coordinates.x, coordinates.y, element)
         }
     }
+    
 }
