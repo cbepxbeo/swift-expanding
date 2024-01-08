@@ -22,4 +22,28 @@
 import XCTest
 @testable import Expanding
 
-final class ExpandingMatrixTestsShared: XCTestCase {}
+final class ExpandingMatrixTestsShared: XCTestCase {
+    func testIterator() throws {
+        func worker(column: Int, row: Int, output: inout Bool) throws {
+            let matrix = Matrix(
+                column: column,
+                row: row,
+                storage: (1...(column * row)).map{ $0 }
+            )
+            for (x, y, element) in matrix {
+                if element != (try matrix.receive(x: x, y: y)) {
+                    output = false
+                }
+            }
+        }
+        var output = true
+        try (0...10).map { _ in
+            let range = 1...100
+            return (Int.random(in: range), Int.random(in: range))
+        }.forEach { item in
+            try worker(column: item.0, row: item.1, output: &output)
+            try worker(column: item.1, row: item.0, output: &output)
+        }
+        XCTAssert(output)
+    }
+}
