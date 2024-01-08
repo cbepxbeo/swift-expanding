@@ -24,7 +24,7 @@
  */
 
 extension Matrix : Sequence  {
-    public func makeIterator() -> some IteratorProtocol {
-        self.storage.makeIterator()
+    public func makeIterator() -> Matrix<Element>.MatrixIterator<Element> {
+        .init(matrix: self)
     }
 }
