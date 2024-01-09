@@ -23,8 +23,27 @@
  
  */
 
-extension Matrix : Sequence  {
-    public func makeIterator() -> Matrix<Element>.MatrixIterator<Element> {
-        .init(matrix: self)
+extension Matrix : Sequence, IteratorProtocol  {
+    public func makeIterator() -> Self {
+        self
+    }
+    public mutating func next() -> (x: Int, y: Int, element: Element?)? {
+        if self.position == self.storage.endIndex {
+            return nil
+        }
+        let element = self.storage[self.position]
+        
+        let x = self.x
+        let y = self.y
+        
+        if self.x >= self.column {
+            self.x = 1
+            self.y += 1
+        } else {
+            self.x += 1
+        }
+        
+        self.storage.formIndex(after: &self.position)
+        return (x, y, element)
     }
 }
