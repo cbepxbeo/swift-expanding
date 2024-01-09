@@ -24,7 +24,9 @@
  */
 
 extension Matrix {
-    public func iterate(direction: IterationDirection, handler: @escaping (
+    @inlinable
+    @inline(__always)
+    public func iterate(direction: IterationDirection, handler: (
         _ xCoordinate: Int,
         _ yCoordinate: Int,
         _ index: Int) -> ()) {
