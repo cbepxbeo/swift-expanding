@@ -96,7 +96,7 @@ final class ExpandingMatrixTestsShared: XCTestCase {
                 print("sdf")
             }
         }
-        matrix.forEach(<#T##body: ((x: Int, y: Int, element: Int?)) throws -> Void##((x: Int, y: Int, element: Int?)) throws -> Void#>)
+        //matrix.forEach(<#T##body: ((x: Int, y: Int, element: Int?)) throws -> Void##((x: Int, y: Int, element: Int?)) throws -> Void#>)
         let blockA : (Int, Int, Int?) -> () = { xCoordinate, yCoordinate, element in
             print("x: \(xCoordinate), y: \(yCoordinate), index: \(element ?? 0)")
         }
