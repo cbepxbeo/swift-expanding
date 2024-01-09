@@ -25,86 +25,82 @@
 
 extension Matrix where Element: SignedNumeric {
     public mutating func move(_ direction: Direction) {
-        func recruscentPassage(block: (_ out: inout Bool) -> ()){
-            var bool = true
-            block(&bool)
-            if bool {
-                return
-            } else {
-                bool = true
-                recruscentPassage{ out in
-                    block(&out)
-                }
-            }
-        }
         switch direction {
         case .up:
-            recruscentPassage { out in
+            self.recruscentPassage { out in
                 self.up(out: &out)
             }
         case .down:
-            recruscentPassage { out in
+            self.recruscentPassage { out in
                 self.down(out: &out)
             }
         case .left:
-            recruscentPassage { out in
+            self.recruscentPassage { out in
                 self.left(out: &out)
             }
         case .right:
-            recruscentPassage { out in
+            self.recruscentPassage { out in
                 self.right(out: &out)
             }
         }
     }
-
-    mutating func up(out: inout Bool){
+    
+    //MARK: Base
+    fileprivate func recruscentPassage(block: (_ out: inout Bool) -> ()){
+        var bool = true
+        block(&bool)
+        if bool {
+            return
+        } else {
+            bool = true
+            self.recruscentPassage{ out in
+                block(&out)
+            }
+        }
+    }
+    
+    
+    fileprivate mutating func replacement(from: Int, to: Int, out: inout Bool){
+        if self.storage[from] != nil {
+            self.storage[to] = self.storage[from]
+            self.storage[from] = nil
+            out = false
+        }
+    }
+    
+    //MARK: Move direction
+    fileprivate mutating func up(out: inout Bool){
         self.iterate(direction: .downToUp) { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && yCoordinate < self.row {
                 let nextIndex = index + self.column
-                if self.storage[nextIndex] != nil {
-                    self.storage[index] = self.storage[nextIndex]
-                    self.storage[nextIndex] = nil
-                    out = false
-                }
+                self.replacement(from: nextIndex, to: index, out: &out)
             }
         }
     }
 
-    mutating func down(out: inout Bool){
+    fileprivate mutating func down(out: inout Bool){
         self.iterate(direction: .upToDown) { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && yCoordinate > 1 {
                 let nextIndex = index - self.column
-                if self.storage[nextIndex] != nil {
-                    self.storage[index] = self.storage[nextIndex]
-                    self.storage[nextIndex] = nil
-                    out = false
-                }
+                self.replacement(from: nextIndex, to: index, out: &out)
             }
         }
     }
     
-    mutating func left(out: inout Bool){
+    fileprivate mutating func left(out: inout Bool){
         self.iterate(direction: .rightToLeft) { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && xCoordinate < self.column {
                 let nextIndex = index + 1
-                if self.storage[nextIndex] != nil {
-                    self.storage[index] = self.storage[nextIndex]
-                    self.storage[nextIndex] = nil
-                    out = false
-                }
+                self.replacement(from: nextIndex, to: index, out: &out)
             }
         }
     }
     
-    mutating func right(out: inout Bool){
+    fileprivate mutating func right(out: inout Bool){
         self.iterate(direction: .leftToRight) { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && xCoordinate > 1 {
                 let nextIndex = index - 1
-                if self.storage[nextIndex] != nil {
-                    self.storage[index] = self.storage[nextIndex]
-                    self.storage[nextIndex] = nil
-                    out = false
-                }
+                self.replacement(from: nextIndex, to: index, out: &out)
             }
         }
     }
