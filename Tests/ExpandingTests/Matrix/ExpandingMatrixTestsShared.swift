@@ -162,10 +162,10 @@ final class ExpandingMatrixTestsShared: XCTestCase {
 //            }
 //        }
         print(matrix)
-        matrix.move(.right)
+        matrix.move(.down)
         print(matrix)
         //matrix.move(.down)
-        matrix.move(.left)
+        matrix.move(.up)
         print(matrix)
         matrix.move(.right)
         print(matrix)

@@ -26,7 +26,7 @@
 extension Matrix: CustomStringConvertible {
     public var description: String {
         var str: String = ""
-        str += "Matrixed: \n"
+        str += "Matrix: \n"
         str += "Stored values type: \(Element.self) \n"
         str += "Rows: \(self.row) \n"
         str += "Columns: \(self.column) \n"
