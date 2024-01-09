@@ -31,7 +31,7 @@ extension Matrix where Element: SignedNumeric {
         case .down:
             self.down()
         case .left:
-            //
+            self.left()
             break
         case .right:
             //
@@ -40,10 +40,17 @@ extension Matrix where Element: SignedNumeric {
     }
     
     
+  
+    
+  
+    
+    
+    
+    
     mutating func up(){
         var bool = false
-        for currentRow in 1...self.row{
-            for currentColumn in 1...self.column {
+        for currentColumn in 1...self.column {
+            for currentRow in 1...self.row{
                 let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
                 if self.storage[currentIndex] == nil && currentRow < self.row {
                     let nextIndex = currentIndex + self.column
@@ -66,9 +73,9 @@ extension Matrix where Element: SignedNumeric {
     
     mutating func down(){
         var bool = false
-        let invertedArray = (1...self.row).map{ $0 }.sorted(by: >)
-        for currentRow in invertedArray{
-            for currentColumn in 1...self.column {
+        let invertedArray = (1...self.column).map{ $0 }.sorted(by: >)
+        for currentColumn in invertedArray{
+            for currentRow in 1...self.row {
                 let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
                 if self.storage[currentIndex] == nil && currentRow > 1 {
                     let nextIndex = currentIndex - self.column
@@ -85,6 +92,30 @@ extension Matrix where Element: SignedNumeric {
         } else {
             bool = false
             self.down()
+        }
+    }
+    
+    
+    mutating func left(){
+        var bool = false
+        for currentColumn in 1...self.column {
+            for currentRow in 1...self.row{
+                let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
+                if self.storage[currentIndex] == nil && currentRow < self.row {
+                    let nextIndex = currentIndex + self.column
+                    if self.storage[nextIndex] != nil {
+                        self.storage[currentIndex] = self.storage[nextIndex]
+                        self.storage[nextIndex] = nil
+                        bool = true
+                    }
+                }
+            }
+        }
+        if !bool {
+            return
+        } else {
+            bool = false
+            self.up()
         }
     }
     
