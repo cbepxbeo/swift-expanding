@@ -46,4 +46,22 @@ final class ExpandingMatrixTestsShared: XCTestCase {
         }
         XCTAssert(output)
     }
+    
+    func testSpeedIterator() throws {
+        let count = 1000
+        let matrix = Matrix(
+            column: count,
+            row: count,
+            storage: (1...(count * count)).map{ $0 }
+        )
+        var output = true
+        measure {
+            for (x, y, element) in matrix {
+                if element != (try? matrix.receive(x: x, y: y)) {
+                    output = false
+                }
+            }
+        }
+        XCTAssert(output)
+    }
 }

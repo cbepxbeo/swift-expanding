@@ -27,35 +27,37 @@ extension Matrix   {
     public struct MatrixIterator<T>: IteratorProtocol {
         public typealias Element = (x: Int, y: Int, element: T?)
         
-        let matrix: Matrix<T>
+        let elements: [T?]
+        let column: Int
         var position: Int
         var x: Int
         var y: Int
         
         init(matrix: Matrix<T>) {
-            self.matrix = matrix
+            self.elements = matrix.storage
+            self.column = matrix.column
             self.position = matrix.storage.startIndex
             self.x = 1
             self.y = 1
         }
         
         public mutating func next() -> Element? {
-            if self.position == self.matrix.storage.endIndex {
+            if self.position == self.elements.endIndex {
                 return nil
             }
-            let element = self.matrix.storage[self.position]
+            let element = self.elements[self.position]
             
             let x = self.x
             let y = self.y
             
-            if self.x >= self.matrix.column {
+            if self.x >= self.column {
                 self.x = 1
                 self.y += 1
             } else {
                 self.x += 1
             }
             
-            self.matrix.storage.formIndex(after: &self.position)
+            self.elements.formIndex(after: &self.position)
             return (x, y, element)
         }
     }
