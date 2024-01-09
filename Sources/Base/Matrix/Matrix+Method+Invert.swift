@@ -12,9 +12,9 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix+Method+Inverted.swift
+ |  File: Matrix+Method+Invert.swift
  |  Created by: Egor Boyko
- |  Date: January 8th, 2024
+ |  Date: January 9th, 2024
  |  Last update: January 9th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
@@ -24,10 +24,12 @@
  */
 
 extension Matrix where Element: SignedNumeric {
-    public func inverted() -> Self {
-        var matrix = self
-        matrix.invert()
-        return matrix
+    public mutating func invert() {
+        for index in 0...self.storage.count - 1 {
+            if let value = self.storage[index] {
+                self.storage[index] = -value
+            }
+        }
     }
 }
 

@@ -47,21 +47,33 @@ final class ExpandingMatrixTestsShared: XCTestCase {
         XCTAssert(output)
     }
     
-    func testSpeedIterator() throws {
-        let count = 1000
-        let matrix = Matrix(
-            column: count,
-            row: count,
-            storage: (1...(count * count)).map{ $0 }
-        )
-        var output = true
-        measure {
-            for (x, y, element) in matrix {
-                if element != (try? matrix.receive(x: x, y: y)) {
-                    output = false
-                }
+    func testInvertMethod(){
+        let count = 10
+        let range = (1...(count * count))
+        let input = range.map{
+            if $0 % 3 == 0 {
+                return Optional<Int>.none
+            } else if $0 % 2 == 0 {
+                return -$0
+            } else {
+                return $0
             }
         }
-        XCTAssert(output)
+        let output = range.map{
+            if $0 % 3 == 0 {
+                return Optional<Int>.none
+            } else if $0 % 2 == 0 {
+                return $0
+            } else {
+                return -$0
+            }
+        }
+        var matrix = Matrix(
+            column: count,
+            row: count,
+            storage: input
+        )
+        matrix.invert()
+        XCTAssert(matrix.storage == output)
     }
 }
