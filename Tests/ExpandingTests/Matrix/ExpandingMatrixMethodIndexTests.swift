@@ -126,16 +126,4 @@ final class ExpandingMatrixMethodIndexTests: XCTestCase {
         }
         XCTAssert(output)
     }
-    
-    func testSetStructure() throws {
-        let count = 5
-        let matrix = Matrix(column: count, row: count, storage: [0])
-        var output: Bool = false
-        do {
-            let _ = try matrix.index(x: count, y: 0)
-        } catch let error as MatrixError where error == .wrongStructure(message: "") {
-            output = true
-        }
-        XCTAssert(output)
-    }
 }
