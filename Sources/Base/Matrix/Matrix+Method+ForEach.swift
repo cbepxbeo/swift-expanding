@@ -24,16 +24,15 @@
  */
 
 extension Matrix {
-    public func forEach(handler: @escaping (
-        _ xCoordinate: Int,
-        _ yCoordinate: Int,
-        _ element: Optional<Element>) -> ()) throws {
-            for currentRow in 1...self.row{
-                for currentColumn in 1...self.column {
-                    let element = self.storage[currentColumn - 1 + (self.column * (currentRow - 1))]
-                    handler(currentColumn, currentRow, element)
+    public func forEach(
+        direction: IterationDirection = .upToDown,
+        handler: (
+            _ xCoordinate: Int,
+            _ yCoordinate: Int,
+            _ element: Optional<Element>) -> ()) {
+                self.iterate(direction: direction) { xCoordinate, yCoordinate, index in
+                    handler(xCoordinate, yCoordinate, self.storage[index])
                 }
             }
-        }
 }
 
