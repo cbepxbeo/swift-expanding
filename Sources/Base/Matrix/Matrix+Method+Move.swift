@@ -29,8 +29,7 @@ extension Matrix where Element: SignedNumeric {
         case .up:
             self.up()
         case .down:
-            //
-            break
+            self.down()
         case .left:
             //
             break
@@ -45,12 +44,12 @@ extension Matrix where Element: SignedNumeric {
         var bool = false
         for currentRow in 1...self.row{
             for currentColumn in 1...self.column {
-                let index = currentColumn - 1 + (self.column * (currentRow - 1))
-                if self.storage[index] == nil && currentRow < self.row {
-                    let downIndex = currentColumn - 1 + (self.column * (currentRow))
-                    if self.storage[downIndex] != nil {
-                        self.storage[index] = self.storage[downIndex]
-                        self.storage[downIndex] = nil
+                let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
+                if self.storage[currentIndex] == nil && currentRow < self.row {
+                    let nextIndex = currentIndex + self.column
+                    if self.storage[nextIndex] != nil {
+                        self.storage[currentIndex] = self.storage[nextIndex]
+                        self.storage[nextIndex] = nil
                         bool = true
                     }
                 }
@@ -61,6 +60,31 @@ extension Matrix where Element: SignedNumeric {
         } else {
             bool = false
             self.up()
+        }
+    }
+    
+    
+    mutating func down(){
+        var bool = false
+        let invertedArray = (1...self.row).map{ $0 }.sorted(by: >)
+        for currentRow in invertedArray{
+            for currentColumn in 1...self.column {
+                let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
+                if self.storage[currentIndex] == nil && currentRow > 1 {
+                    let nextIndex = currentIndex - self.column
+                    if self.storage[nextIndex] != nil {
+                        self.storage[currentIndex] = self.storage[nextIndex]
+                        self.storage[nextIndex] = nil
+                        bool = true
+                    }
+                }
+            }
+        }
+        if !bool {
+            return
+        } else {
+            bool = false
+            self.down()
         }
     }
     
