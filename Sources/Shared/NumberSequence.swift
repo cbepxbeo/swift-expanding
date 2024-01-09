@@ -24,7 +24,7 @@
  */
 
 public struct NumberSequence: Sequence {
-    init(_ start: Int, _ end: Int) {
+    public init(_ start: Int, _ end: Int) {
         self.start = start
         self.end = end
     }
