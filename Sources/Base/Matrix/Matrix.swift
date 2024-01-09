@@ -28,9 +28,5 @@ public struct Matrix<Element> {
     internal(set) public var row: Int
     var storage: [Optional<Element>]
     var position: Int = 0
-    //@usableFromInline
-    var x: Int = 1
-    //@usableFromInline
-    var y: Int = 1
 }
 
