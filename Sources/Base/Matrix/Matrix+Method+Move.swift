@@ -27,8 +27,7 @@ extension Matrix where Element: SignedNumeric {
     public mutating func move(_ direction: Direction) {
         switch direction {
         case .up:
-            //
-            break
+            self.up()
         case .down:
             //
             break
@@ -40,5 +39,31 @@ extension Matrix where Element: SignedNumeric {
             break
         }
     }
+    
+    
+    mutating func up(){
+        var bool = false
+        for currentRow in 1...self.row{
+            for currentColumn in 1...self.column {
+                let index = currentColumn - 1 + (self.column * (currentRow - 1))
+                if self.storage[index] == nil && currentRow < self.row {
+                    let downIndex = currentColumn - 1 + (self.column * (currentRow))
+                    if self.storage[downIndex] != nil {
+                        self.storage[index] = self.storage[downIndex]
+                        self.storage[downIndex] = nil
+                        bool = true
+                    }
+                }
+            }
+        }
+        if !bool {
+            return
+        } else {
+            bool = false
+            self.up()
+        }
+    }
+    
+    
 }
 
