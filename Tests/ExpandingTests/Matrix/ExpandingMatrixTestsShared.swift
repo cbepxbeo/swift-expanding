@@ -77,6 +77,38 @@ final class ExpandingMatrixTestsShared: XCTestCase {
         XCTAssert(matrix.storage == output)
     }
     
+    
+    
+    func testIter(){
+        let column = 5
+        let row = 6
+        let array = (1...(column * row)).map{
+            if $0 % 2 == 0 {
+                return Optional<Int>.none
+            } else {
+                return $0
+            }
+        }
+        let matrix = Matrix(column: column, row: row, storage: array)
+        matrix.iterate(direction: .rightToLeft) { xCoordinate, yCoordinate, index in
+            print("x: \(xCoordinate), y: \(yCoordinate), index: \(index)")
+            DispatchQueue.main.async {
+                print("sdf")
+            }
+        }
+        matrix.forEach(<#T##body: ((x: Int, y: Int, element: Int?)) throws -> Void##((x: Int, y: Int, element: Int?)) throws -> Void#>)
+        let blockA : (Int, Int, Int?) -> () = { xCoordinate, yCoordinate, element in
+            print("x: \(xCoordinate), y: \(yCoordinate), index: \(element ?? 0)")
+        }
+        let blockB : (Int, Int, Int) -> () = { xCoordinate, yCoordinate, index in
+            print("x: \(xCoordinate), y: \(yCoordinate), index: \(index)")
+        }
+        matrix.iterate(direction: .rightToLeft, handler: blockB)
+        matrix.forEach(direction: .downToUp, handler: blockA)
+        
+    }
+    
+    
     func testMoveMethod(){
 //        let column = 5
 //        let row = 12
@@ -92,23 +124,59 @@ final class ExpandingMatrixTestsShared: XCTestCase {
 //            }
 //        )
         
+//        for column in 0...5 {
+//            for row in 0...5 {
+//                print("x: \(row), y: \(column)")
+//            }
+//        }
+        
+        
         let array: [Int?] = [
             1, nil, nil,
             nil, nil, nil,
-            nil, nil, nil,
-            nil, 2, nil,
+            nil, nil, 2,
+            7, 2, 6,
             1, nil, nil,
             nil, nil, 3,
             3, nil, 4
         ]
         var matrix = Matrix(column: 3, row: 7, storage: array)
         
+        
+      
+        
+//        let column = 14
+//        let row = 44
+//        let arraysd = (1...(column * row)).map{
+//            if $0 % 2 == 0 {
+//                return Optional<Int>.none
+//            } else {
+//                return $0
+//            }
+//        }
+//        
+//        measure {
+//            for _ in 0...1000 {
+//                var m = Matrix(column: column, row: row, storage: arraysd)
+//                m.move(.down)
+//            }
+//        }
+        print(matrix)
+        matrix.move(.right)
         print(matrix)
         //matrix.move(.down)
-        matrix.move(.up)
+        matrix.move(.left)
+        print(matrix)
+        matrix.move(.right)
+        print(matrix)
+        //matrix.move(.down)
+        matrix.move(.left)
         print(matrix)
         matrix.move(.down)
         print(matrix)
+        matrix.move(.up)
+        print(matrix)
+        
     }
     
     
