@@ -68,7 +68,7 @@ extension Matrix where Element: SignedNumeric {
         }
     }
     
-    //MARK: Move direction
+    //MARK: Move to direction
     fileprivate mutating func up(out: inout Bool){
         self.iterate(direction: .downToUp) { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && yCoordinate < self.row {
