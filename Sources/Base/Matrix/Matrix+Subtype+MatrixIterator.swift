@@ -15,7 +15,7 @@
  |  File: Matrix+Subtype+MatrixIterator.swift
  |  Created by: Egor Boyko
  |  Date: January 8th, 2024
- |  Last update: January 8th, 2024
+ |  Last update: January 9th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
