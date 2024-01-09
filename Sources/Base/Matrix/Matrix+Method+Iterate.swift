@@ -26,43 +26,45 @@
 extension Matrix {
     @inlinable
     @inline(__always)
-    public func iterate(direction: IterationDirection, handler: (
-        _ xCoordinate: Int,
-        _ yCoordinate: Int,
-        _ index: Int) -> ()) {
-            let iteratorA: NumberSequence
-            let iteratorB: NumberSequence
-            switch direction {
-            case .upToDown:
-                iteratorA = NumberSequence(1, self.row)
-                iteratorB = NumberSequence(1, self.column)
-            case .downToUp:
-                iteratorA = NumberSequence(self.row, 1)
-                iteratorB = NumberSequence(1, self.column)
-            case .leftToRight:
-                iteratorA = NumberSequence(1, self.column)
-                iteratorB = NumberSequence(1, self.row)
-            case .rightToLeft:
-                iteratorA = NumberSequence(self.column, 1)
-                iteratorB = NumberSequence(1, self.row)
-            }
-            
-            for a in iteratorA {
-                for b in iteratorB {
-                    let currentColumn: Int
-                    let currentRow: Int
-                    switch direction {
-                    case .upToDown, .downToUp:
-                        currentColumn = b
-                        currentRow = a
-                    case .leftToRight, .rightToLeft:
-                        currentColumn = a
-                        currentRow = b
+    public func iterate(
+        direction: IterationDirection,
+        handler: (
+            _ xCoordinate: Int,
+            _ yCoordinate: Int,
+            _ index: Int) -> ()) {
+                let iteratorA: NumberSequence
+                let iteratorB: NumberSequence
+                switch direction {
+                case .upToDown:
+                    iteratorA = NumberSequence(1, self.row)
+                    iteratorB = NumberSequence(1, self.column)
+                case .downToUp:
+                    iteratorA = NumberSequence(self.row, 1)
+                    iteratorB = NumberSequence(1, self.column)
+                case .leftToRight:
+                    iteratorA = NumberSequence(1, self.column)
+                    iteratorB = NumberSequence(1, self.row)
+                case .rightToLeft:
+                    iteratorA = NumberSequence(self.column, 1)
+                    iteratorB = NumberSequence(1, self.row)
+                }
+                
+                for a in iteratorA {
+                    for b in iteratorB {
+                        let currentColumn: Int
+                        let currentRow: Int
+                        switch direction {
+                        case .upToDown, .downToUp:
+                            currentColumn = b
+                            currentRow = a
+                        case .leftToRight, .rightToLeft:
+                            currentColumn = a
+                            currentRow = b
+                        }
+                        let index = currentColumn - 1 + (self.column * (currentRow - 1))
+                        handler(currentColumn, currentRow, index)
                     }
-                    let index = currentColumn - 1 + (self.column * (currentRow - 1))
-                    handler(currentColumn, currentRow, index)
                 }
             }
-        }
 }
 
