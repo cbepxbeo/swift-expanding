@@ -29,20 +29,34 @@ extension Matrix   {
         
         let matrix: Matrix<T>
         var position: Int
+        var x: Int
+        var y: Int
         
         init(matrix: Matrix<T>) {
             self.matrix = matrix
             self.position = matrix.storage.startIndex
+            self.x = 1
+            self.y = 1
         }
-
+        
         public mutating func next() -> Element? {
-            guard self.position != self.matrix.storage.endIndex,
-                  let coordinates = try? self.matrix.coordinates(from: self.position) else {
+            if self.position == self.matrix.storage.endIndex {
                 return nil
             }
             let element = self.matrix.storage[self.position]
+            
+            let x = self.x
+            let y = self.y
+            
+            if self.x >= self.matrix.column {
+                self.x = 1
+                self.y += 1
+            } else {
+                self.x += 1
+            }
+            
             self.matrix.storage.formIndex(after: &self.position)
-            return (coordinates.x, coordinates.y, element)
+            return (x, y, element)
         }
     }
     
