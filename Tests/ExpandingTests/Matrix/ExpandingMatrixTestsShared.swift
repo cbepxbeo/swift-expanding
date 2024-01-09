@@ -76,4 +76,40 @@ final class ExpandingMatrixTestsShared: XCTestCase {
         matrix.invert()
         XCTAssert(matrix.storage == output)
     }
+    
+    func testMoveMethod(){
+//        let column = 5
+//        let row = 12
+//        var matrix = Matrix(
+//            column: column,
+//            row: row,
+//            storage: (1...(column * row)).map{
+//                if $0 % 2 == 0 {
+//                    return Optional<Int>.none
+//                } else {
+//                    return $0
+//                }
+//            }
+//        )
+        
+        let array: [Int?] = [
+            1, nil, nil,
+            nil, nil, nil,
+            nil, nil, nil,
+            nil, 2, nil,
+            1, nil, nil,
+            nil, nil, 3,
+            3, nil, 4
+        ]
+        var matrix = Matrix(column: 3, row: 7, storage: array)
+        
+        print(matrix)
+        //matrix.move(.down)
+        matrix.move(.up)
+        print(matrix)
+        matrix.move(.down)
+        print(matrix)
+    }
+    
+    
 }
