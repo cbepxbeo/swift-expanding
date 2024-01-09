@@ -25,100 +25,88 @@
 
 extension Matrix where Element: SignedNumeric {
     public mutating func move(_ direction: Direction) {
+        func recruscentPassage(block: (_ out: inout Bool) -> ()){
+            var bool = true
+            block(&bool)
+            if bool {
+                return
+            } else {
+                bool = true
+                recruscentPassage{ out in
+                    block(&out)
+                }
+            }
+        }
         switch direction {
         case .up:
-            self.up()
+            recruscentPassage { out in
+                self.up(out: &out)
+            }
         case .down:
-            self.down()
+            recruscentPassage { out in
+                self.down(out: &out)
+            }
         case .left:
-            self.left()
-            break
+            recruscentPassage { out in
+                self.left(out: &out)
+            }
         case .right:
-            //
-            break
+            recruscentPassage { out in
+                self.right(out: &out)
+            }
         }
     }
-    
-    
-  
-    
-  
-    
-    
-    
-    
-    mutating func up(){
-        var bool = false
-        for currentColumn in 1...self.column {
-            for currentRow in 1...self.row{
-                let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
-                if self.storage[currentIndex] == nil && currentRow < self.row {
-                    let nextIndex = currentIndex + self.column
-                    if self.storage[nextIndex] != nil {
-                        self.storage[currentIndex] = self.storage[nextIndex]
-                        self.storage[nextIndex] = nil
-                        bool = true
-                    }
+
+    mutating func up(out: inout Bool){
+        self.iterate(direction: .downToUp) { xCoordinate, yCoordinate, index in
+            if self.storage[index] == nil && yCoordinate < self.row {
+                let nextIndex = index + self.column
+                if self.storage[nextIndex] != nil {
+                    self.storage[index] = self.storage[nextIndex]
+                    self.storage[nextIndex] = nil
+                    out = false
                 }
             }
         }
-        if !bool {
-            return
-        } else {
-            bool = false
-            self.up()
-        }
     }
-    
-    
-    mutating func down(){
-        var bool = false
-        let invertedArray = (1...self.column).map{ $0 }.sorted(by: >)
-        for currentColumn in invertedArray{
-            for currentRow in 1...self.row {
-                let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
-                if self.storage[currentIndex] == nil && currentRow > 1 {
-                    let nextIndex = currentIndex - self.column
-                    if self.storage[nextIndex] != nil {
-                        self.storage[currentIndex] = self.storage[nextIndex]
-                        self.storage[nextIndex] = nil
-                        bool = true
-                    }
+
+    mutating func down(out: inout Bool){
+        self.iterate(direction: .upToDown) { xCoordinate, yCoordinate, index in
+            if self.storage[index] == nil && yCoordinate > 1 {
+                let nextIndex = index - self.column
+                if self.storage[nextIndex] != nil {
+                    self.storage[index] = self.storage[nextIndex]
+                    self.storage[nextIndex] = nil
+                    out = false
                 }
             }
         }
-        if !bool {
-            return
-        } else {
-            bool = false
-            self.down()
-        }
     }
     
-    
-    mutating func left(){
-        var bool = false
-        for currentColumn in 1...self.column {
-            for currentRow in 1...self.row{
-                let currentIndex = currentColumn - 1 + (self.column * (currentRow - 1))
-                if self.storage[currentIndex] == nil && currentRow < self.row {
-                    let nextIndex = currentIndex + self.column
-                    if self.storage[nextIndex] != nil {
-                        self.storage[currentIndex] = self.storage[nextIndex]
-                        self.storage[nextIndex] = nil
-                        bool = true
-                    }
+    mutating func left(out: inout Bool){
+        self.iterate(direction: .rightToLeft) { xCoordinate, yCoordinate, index in
+            if self.storage[index] == nil && xCoordinate < self.column {
+                let nextIndex = index + 1
+                if self.storage[nextIndex] != nil {
+                    self.storage[index] = self.storage[nextIndex]
+                    self.storage[nextIndex] = nil
+                    out = false
                 }
             }
         }
-        if !bool {
-            return
-        } else {
-            bool = false
-            self.up()
-        }
     }
     
-    
+    mutating func right(out: inout Bool){
+        self.iterate(direction: .leftToRight) { xCoordinate, yCoordinate, index in
+            if self.storage[index] == nil && xCoordinate > 1 {
+                let nextIndex = index - 1
+                if self.storage[nextIndex] != nil {
+                    self.storage[index] = self.storage[nextIndex]
+                    self.storage[nextIndex] = nil
+                    out = false
+                }
+            }
+        }
+    }
 }
 
