@@ -24,6 +24,16 @@
  */
 
 extension Matrix {
+    public func iterate(
+        body: (
+            _ xCoordinate: Int,
+            _ yCoordinate: Int,
+            _ index: Int) -> ()){
+                for item in MatrixIndexSequence(matrix: self) {
+                    body(item.x, item.y, item.index)
+                }
+            }
+    
     @inlinable
     @inline(__always)
     public func iterate(
