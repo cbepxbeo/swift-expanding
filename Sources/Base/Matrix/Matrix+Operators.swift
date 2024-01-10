@@ -33,11 +33,11 @@ extension Matrix where Element: SignedNumeric {
         if column < 1 { column = 1 }
         var newMatrix = try! Matrix(column: column, row: row, element: Element.self)
         
-        lhs.forEach{ x, y, element in
+        lhs.forEach{ (x, y, element) in
             try? newMatrix.addTo(element ?? 0, x: x, y: y)
         }
         
-        rhs.forEach { x, y, element in
+        rhs.forEach { (x, y, element) in
             try? newMatrix.addTo(element ?? 0, x: x, y: y)
         }
         return newMatrix

@@ -27,27 +27,26 @@
 extension Matrix   {
     public struct MatrixIndexSequence<T>: Sequence, IteratorProtocol {
         public typealias Element = (x: Int, y: Int, index: Int)
-        
-        let elements: [T?]
-        let column: Int
-        var position: Int
-        var x: Int
-        var y: Int
-        
-        init(matrix: Matrix<T>) {
+
+        init(matrix: Matrix<T>){
             self.elements = matrix.storage
             self.column = matrix.column
-            self.position = matrix.storage.startIndex
+            self.row = matrix.row
             self.x = 1
             self.y = 1
         }
         
+        let elements: [T?]
+        let column: Int
+        let row: Int
+        var x: Int
+        var y: Int
+        
         public mutating func next() -> Element? {
-            if self.position == self.elements.endIndex {
+            if self.column == self.x && self.row == self.y {
                 return nil
             }
-            let index = self.position
-            
+            let index = self.x - 1 + (self.column * (self.y - 1))
             let x = self.x
             let y = self.y
             
@@ -57,8 +56,7 @@ extension Matrix   {
             } else {
                 self.x += 1
             }
-            
-            self.elements.formIndex(after: &self.position)
+    
             return (x, y, index)
         }
     }

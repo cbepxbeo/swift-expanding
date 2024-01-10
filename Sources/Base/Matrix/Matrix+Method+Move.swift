@@ -24,9 +24,9 @@
  */
 
 extension Matrix {
-    public mutating func move(_ direction: Direction) {
+    public mutating func move(_ direction: Matrix.Direction) {
         switch direction {
-        case .up:
+        case .upward:
             recruscentPassage { out in
                 self.iterate { xCoordinate, yCoordinate, index in
                     if self.storage[index] == nil && yCoordinate < self.row {
@@ -35,7 +35,7 @@ extension Matrix {
                     }
                 }
             }
-        case .down:
+        case .downward:
             recruscentPassage { out in
                 self.iterate{ xCoordinate, yCoordinate, index in
                     if self.storage[index] == nil && yCoordinate > 1 {

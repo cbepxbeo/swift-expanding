@@ -14,8 +14,8 @@
  |---------------------------------------------------------------------------------------
  |  File: Matrix+Subtype+IterationDirection.swift
  |  Created by: Egor Boyko
- |  Date: January 9th, 2024
- |  Last update: January 9th, 2024
+ |  Date: January 10th, 2024
+ |  Last update: January 10th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #Completed | #Decorated
