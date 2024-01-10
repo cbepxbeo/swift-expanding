@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Direction.swift
+ |  File: Matrix+Subtype+Direction.swift
  |  Created by: Egor Boyko
- |  Date: January 9th, 2024
- |  Last update: January 9th, 2024
+ |  Date: January 10th, 2024
+ |  Last update: January 10th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #Completed | #Not decorated
@@ -23,10 +23,12 @@
  
  */
 
-public enum Direction {
-    case up
-    case down
-    case left
-    case right
+extension Matrix {
+    public enum Direction {
+        case upward
+        case downward
+        case left
+        case right
+    }
 }
 
