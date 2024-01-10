@@ -110,74 +110,18 @@ final class ExpandingMatrixTestsShared: XCTestCase {
     
     
     func testMoveMethod(){
-//        let column = 5
-//        let row = 12
-//        var matrix = Matrix(
-//            column: column,
-//            row: row,
-//            storage: (1...(column * row)).map{
-//                if $0 % 2 == 0 {
-//                    return Optional<Int>.none
-//                } else {
-//                    return $0
-//                }
-//            }
-//        )
-        
-//        for column in 0...5 {
-//            for row in 0...5 {
-//                print("x: \(row), y: \(column)")
-//            }
-//        }
-        
-        
-        let array: [Int?] = [
-            1, nil, nil,
-            nil, nil, nil,
-            nil, nil, 2,
-            7, 2, 6,
-            1, nil, nil,
-            nil, nil, 3,
-            3, nil, 4
-        ]
-        var matrix = Matrix(column: 3, row: 7, storage: array)
-        
-        
-      
-        
-//        let column = 14
-//        let row = 44
-//        let arraysd = (1...(column * row)).map{
-//            if $0 % 2 == 0 {
-//                return Optional<Int>.none
-//            } else {
-//                return $0
-//            }
-//        }
-//        
-//        measure {
-//            for _ in 0...1000 {
-//                var m = Matrix(column: column, row: row, storage: arraysd)
-//                m.move(.down)
-//            }
-//        }
-        print(matrix)
-        matrix.move(.down)
-        print(matrix)
-        //matrix.move(.down)
-        matrix.move(.up)
-        print(matrix)
-        matrix.move(.right)
-        print(matrix)
-        //matrix.move(.down)
-        matrix.move(.left)
-        print(matrix)
-        matrix.move(.down)
-        print(matrix)
-        matrix.move(.up)
-        print(matrix)
-        
+        let column = 2000
+        let row = 2000
+        let array = (1...(column * row)).map{
+            if $0 % 2 == 0 {
+                return Optional<Int>.none
+            } else {
+                return $0
+            }
+        }
+        measure {
+            var matrix = Matrix(column: column, row: row, storage: array)
+            matrix.move(.down)
+        }
     }
-    
-    
 }

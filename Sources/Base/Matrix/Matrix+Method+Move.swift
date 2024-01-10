@@ -23,7 +23,9 @@
  
  */
 
-extension Matrix where Element: SignedNumeric {
+var iterationCount: Int = 1
+
+extension Matrix {
     public mutating func move(_ direction: Direction) {
         switch direction {
         case .up:
@@ -46,13 +48,15 @@ extension Matrix where Element: SignedNumeric {
     }
     
     //MARK: Base
-    fileprivate func recruscentPassage(block: (_ out: inout Bool) -> ()){
+    func recruscentPassage(block: (_ out: inout Bool) -> ()){
         var bool = true
         block(&bool)
         if bool {
+            print("итераций \(iterationCount)")
             return
         } else {
             bool = true
+            iterationCount += 1
             self.recruscentPassage{ out in
                 block(&out)
             }
@@ -68,9 +72,23 @@ extension Matrix where Element: SignedNumeric {
         }
     }
     
+    @inlinable
+    @inline(__always)
+    public func fastIterate(handler: (
+        _ xCoordinate: Int,
+        _ yCoordinate: Int,
+        _ index: Int) -> ()){
+            for currentColumn in NumberSequence(1, self.column) {
+                for currentRow in NumberSequence(1, self.row) {
+                    let index = currentColumn - 1 + (self.column * (currentRow - 1))
+                    handler(currentColumn, currentRow, index)
+                }
+            }
+        }
+    
     //MARK: Move to direction
     fileprivate mutating func up(out: inout Bool){
-        self.iterate(direction: .downToUp) { xCoordinate, yCoordinate, index in
+        self.fastIterate { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && yCoordinate < self.row {
                 let nextIndex = index + self.column
                 self.replacement(from: nextIndex, to: index, out: &out)
@@ -79,13 +97,13 @@ extension Matrix where Element: SignedNumeric {
     }
 
     fileprivate mutating func down(out: inout Bool){
-        self.iterate(direction: .upToDown) { xCoordinate, yCoordinate, index in
+        self.fastIterate{ xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && yCoordinate > 1 {
                 let nextIndex = index - self.column
                 self.replacement(from: nextIndex, to: index, out: &out)
             }
         }
-    }
+}
     
     fileprivate mutating func left(out: inout Bool){
         self.iterate(direction: .rightToLeft) { xCoordinate, yCoordinate, index in
@@ -97,7 +115,7 @@ extension Matrix where Element: SignedNumeric {
     }
     
     fileprivate mutating func right(out: inout Bool){
-        self.iterate(direction: .leftToRight) { xCoordinate, yCoordinate, index in
+        self.iterate(direction: .upToDown) { xCoordinate, yCoordinate, index in
             if self.storage[index] == nil && xCoordinate > 1 {
                 let nextIndex = index - 1
                 self.replacement(from: nextIndex, to: index, out: &out)

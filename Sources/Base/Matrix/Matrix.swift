@@ -27,5 +27,6 @@ public struct Matrix<Element> {
     internal(set) public var column: Int
     internal(set) public var row: Int
     var storage: [Optional<Element>]
+ 
 }
 
