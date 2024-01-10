@@ -27,25 +27,24 @@
 extension Matrix   {
     public struct MatrixDirectionalIndexSequence<T>: Sequence, IteratorProtocol {
         public typealias Element = (x: Int, y: Int, index: Int)
+        init(matrix: Matrix<T>, _ direction: Matrix.IterationDirection) {
+            self.elements = matrix.storage
+            self.column = matrix.column
+            self.row = matrix.row
+            self.direction = direction
+            self.x = (direction == .downToUp || direction == .rightToLeft) ? matrix.column : 1
+            self.y = (direction == .downToUp || direction == .rightToLeft) ? matrix.row : 1
+        }
         
-        let direction: Matrix.Direction
+        let direction: Matrix.IterationDirection
         let elements: [T?]
         let column: Int
         let row: Int
         var x: Int
         var y: Int
-        
-        init(matrix: Matrix<T>, direction: Matrix.Direction) {
-            self.elements = matrix.storage
-            self.column = matrix.column
-            self.row = matrix.row
-            self.direction = direction
-            self.x = 1
-            self.y = 1
-        }
-        
+    
         public mutating func next() -> Element? {
-            if self.column == self.x && self.row == self.y {
+            if self.x == 0  {
                 return nil
             }
             
@@ -53,13 +52,44 @@ extension Matrix   {
             let x = self.x
             let y = self.y
             
-            if self.x >= self.column {
-                self.x = 1
-                self.y += 1
-            } else {
-                self.x += 1
+            switch self.direction {
+            case .upToDown:
+                if self.x >= self.column && self.y != self.row {
+                    self.x = 1
+                    self.y += 1
+                } else if self.x >= self.column && self.y == self.row {
+                    self.x = 0
+                } else {
+                    self.x += 1
+                }
+            case .downToUp:
+                if self.x <= 1 && self.y != 1 {
+                    self.x = 5
+                    self.y -= 1
+                } else if self.x <= 1 && self.y == 1 {
+                    self.x = 0
+                } else {
+                    self.x -= 1
+                }
+            case .leftToRight:
+                if self.y >= self.row && self.x != self.column {
+                    self.y = 1
+                    self.x += 1
+                } else if self.y >= self.row && self.x == self.column {
+                    self.x = 0
+                } else {
+                    self.y += 1
+                }
+            case .rightToLeft:
+                if self.y <= 1 && self.x != 1 {
+                    self.y = 5
+                    self.x -= 1
+                } else if self.y <= 1 && self.x == 1 {
+                    self.x = 0
+                } else {
+                    self.y -= 1
+                }
             }
-            
             return (x, y, index)
         }
     }
