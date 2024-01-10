@@ -23,102 +23,44 @@
  
  */
 
-var iterationCount: Int = 1
-
 extension Matrix {
     public mutating func move(_ direction: Direction) {
         switch direction {
         case .up:
-            self.recruscentPassage { out in
-                self.up(out: &out)
-            }
-        case .down:
-            self.recruscentPassage { out in
-                self.down(out: &out)
-            }
-        case .left:
-            self.recruscentPassage { out in
-                self.left(out: &out)
-            }
-        case .right:
-            self.recruscentPassage { out in
-                self.right(out: &out)
-            }
-        }
-    }
-    
-    //MARK: Base
-    func recruscentPassage(block: (_ out: inout Bool) -> ()){
-        var bool = true
-        block(&bool)
-        if bool {
-            print("итераций \(iterationCount)")
-            return
-        } else {
-            bool = true
-            iterationCount += 1
-            self.recruscentPassage{ out in
-                block(&out)
-            }
-        }
-    }
-    
-    
-    fileprivate mutating func replacement(from: Int, to: Int, out: inout Bool){
-        if self.storage[from] != nil {
-            self.storage[to] = self.storage[from]
-            self.storage[from] = nil
-            out = false
-        }
-    }
-    
-    @inlinable
-    @inline(__always)
-    public func fastIterate(handler: (
-        _ xCoordinate: Int,
-        _ yCoordinate: Int,
-        _ index: Int) -> ()){
-            for currentColumn in NumberSequence(1, self.column) {
-                for currentRow in NumberSequence(1, self.row) {
-                    let index = currentColumn - 1 + (self.column * (currentRow - 1))
-                    handler(currentColumn, currentRow, index)
+            recruscentPassage { out in
+                self.iterate { xCoordinate, yCoordinate, index in
+                    if self.storage[index] == nil && yCoordinate < self.row {
+                        let nextIndex = index + self.column
+                        out = !self.rearrangement(from: nextIndex, to: index)
+                    }
                 }
             }
-        }
-    
-    //MARK: Move to direction
-    fileprivate mutating func up(out: inout Bool){
-        self.fastIterate { xCoordinate, yCoordinate, index in
-            if self.storage[index] == nil && yCoordinate < self.row {
-                let nextIndex = index + self.column
-                self.replacement(from: nextIndex, to: index, out: &out)
+        case .down:
+            recruscentPassage { out in
+                self.iterate{ xCoordinate, yCoordinate, index in
+                    if self.storage[index] == nil && yCoordinate > 1 {
+                        let nextIndex = index - self.column
+                        out = !self.rearrangement(from: nextIndex, to: index)
+                    }
+                }
             }
-        }
-    }
-
-    fileprivate mutating func down(out: inout Bool){
-        self.fastIterate{ xCoordinate, yCoordinate, index in
-            if self.storage[index] == nil && yCoordinate > 1 {
-                let nextIndex = index - self.column
-                self.replacement(from: nextIndex, to: index, out: &out)
+        case .left:
+            recruscentPassage { out in
+                self.iterate{ xCoordinate, yCoordinate, index in
+                    if self.storage[index] == nil && xCoordinate < self.column {
+                        let nextIndex = index + 1
+                        out = !self.rearrangement(from: nextIndex, to: index)
+                    }
+                }
             }
-        }
-}
-    
-    fileprivate mutating func left(out: inout Bool){
-        self.iterate(direction: .rightToLeft) { xCoordinate, yCoordinate, index in
-            if self.storage[index] == nil && xCoordinate < self.column {
-                let nextIndex = index + 1
-                self.replacement(from: nextIndex, to: index, out: &out)
-            }
-        }
-    }
-    
-    fileprivate mutating func right(out: inout Bool){
-        self.iterate(direction: .upToDown) { xCoordinate, yCoordinate, index in
-            if self.storage[index] == nil && xCoordinate > 1 {
-                let nextIndex = index - 1
-                self.replacement(from: nextIndex, to: index, out: &out)
+        case .right:
+            recruscentPassage { out in
+                self.iterate { xCoordinate, yCoordinate, index in
+                    if self.storage[index] == nil && xCoordinate > 1 {
+                        let nextIndex = index - 1
+                        out = !self.rearrangement(from: nextIndex, to: index)
+                    }
+                }
             }
         }
     }
