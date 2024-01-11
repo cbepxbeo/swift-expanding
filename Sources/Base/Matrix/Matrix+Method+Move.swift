@@ -18,58 +18,77 @@
  |  Last update: January 11th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
- |  Status: #In progress | #Not decorated
+ |  Status: #Completed | #Decorated
  |---------------------------------------------------------------------------------------
  
  */
 
 extension Matrix {
-    public mutating func move(_ direction: Matrix.Direction) {
+    ///Moves all elements in a specific direction
+    ///
+    ///Example with moving elements up
+    ///
+    ///     //Row 1:          | nil |  1  | nil | nil |
+    ///     //Row 2:          | nil |  1  |  2  | nil |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          | nil |  2  |  2  | nil |
+    ///     //Row 4:          | nil |  1  | nil | nil |
+    ///
+    ///     matrix.move(.upward)
+    ///
+    ///     //Row 1:          | nil |  1  |  2  | nil |
+    ///     //Row 2:          | nil |  1  |  2  | nil |
+    ///     //Row 3:          | nil |  2  | nil | nil |
+    ///     //Row 4:          | nil |  1  | nil | nil |
+    ///     //Row 4:          | nil | nil | nil | nil |
+    ///
+    ///Example with moving elements left
+    ///
+    ///     //Row 1:          | nil | nil |  1  | nil |
+    ///     //Row 2:          | nil |  1  | nil |  2  |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          | nil |  2  |  2  | nil |
+    ///     //Row 4:          |  1  | nil | nil |  1  |
+    ///
+    ///     matrix.move(.left)
+    ///
+    ///     //Row 1:          |  1  | nil | nil | nil |
+    ///     //Row 2:          |  1  |  2  | nil | nil |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          |  2  |  2  | nil | nil |
+    ///     //Row 4:          |  1  |  1  | nil | nil |
+    ///
+    /// - Parameter direction: The direction in which the elements will move
+    public mutating func move(_ direction: Matrix.Direction, emptyCell: Element? = nil) {
+        //General process logic
+        func sharedProcess(
+            condition: ((x: Int, y: Int)) -> Bool,
+            nextIndex: (_ index: Int) -> Int){
+                self.iterateRecursively{ x, y, index, out in
+                    if self.storage[index] == nil && condition((x, y)) {
+                        let nextIndex = nextIndex(index)
+                        moveAndclean(from: nextIndex, to: index, out: &out)
+                    }
+                }
+        }
+        //If an element exists in the source cell, it will be copied to the
+        //destination cell, and then the source cell will be reset to nil
+        func moveAndclean(from: Int, to: Int, out: inout Bool){
+            if self.storage[from] != nil {
+                self.storage[to] = self.storage[from]
+                self.storage[from] = nil
+                out = false
+            }
+        }
         switch direction {
         case .upward:
-            recruscentPassage { out in
-                self.iterate { xCoordinate, yCoordinate, index in
-                    if self.storage[index] == nil && yCoordinate < self.row {
-                        let nextIndex = index + self.column
-                        if self.rearrangement(from: nextIndex, to: index) {
-                            out = false
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.y < self.row }, nextIndex: { $0 + self.column })
         case .downward:
-            recruscentPassage { out in
-                self.iterate{ xCoordinate, yCoordinate, index in
-                    if self.storage[index] == nil && yCoordinate > 1 {
-                        let nextIndex = index - self.column
-                        if self.rearrangement(from: nextIndex, to: index) {
-                            out = false
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.y > 1 }, nextIndex: { $0 - self.column })
         case .left:
-            recruscentPassage { out in
-                self.iterate{ xCoordinate, yCoordinate, index in
-                    if self.storage[index] == nil && xCoordinate < self.column {
-                        let nextIndex = index + 1
-                        if self.rearrangement(from: nextIndex, to: index) {
-                            out = false
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.x < self.column }, nextIndex: { $0 + 1 })
         case .right:
-            recruscentPassage { out in
-                self.iterate { xCoordinate, yCoordinate, index in
-                    if self.storage[index] == nil && xCoordinate > 1 {
-                        let nextIndex = index - 1
-                        if self.rearrangement(from: nextIndex, to: index) {
-                            out = false
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.x > 1 }, nextIndex: { $0 - 1 })
         }
     }
 }
