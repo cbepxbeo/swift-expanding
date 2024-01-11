@@ -23,6 +23,76 @@
  
  */
 
-extension Matrix {
-    public mutating func summationIdentical(){}
+extension Matrix where Element: SignedNumeric {
+    @discardableResult
+    public mutating func summationIdentical(_ direction: Matrix.Direction) -> Bool {
+        self.move(direction)
+        var isSuccess: Bool = false
+        switch direction {
+        case .upward:
+            recruscentPassage { out in
+                self.iterate { xCoordinate, yCoordinate, index in
+                    if self.storage[index] != nil && yCoordinate < self.row {
+                        let nextIndex = index + self.column
+                        if self.summ(from: nextIndex, to: index) {
+                            self.move(direction)
+                            out = false
+                            isSuccess = true
+                        }
+                    }
+                }
+            }
+        case .downward:
+            recruscentPassage { out in
+                self.iterate{ xCoordinate, yCoordinate, index in
+                    if self.storage[index] != nil && yCoordinate > 1 {
+                        let nextIndex = index - self.column
+                        if self.summ(from: nextIndex, to: index) {
+                            self.move(direction)
+                            out = false
+                            isSuccess = true
+                        }
+                    }
+                }
+            }
+        case .left:
+            recruscentPassage { out in
+                self.iterate{ xCoordinate, yCoordinate, index in
+                    if self.storage[index] != nil && xCoordinate < self.column {
+                        let nextIndex = index + 1
+                        if self.summ(from: nextIndex, to: index) {
+                            self.move(direction)
+                            out = false
+                            isSuccess = true
+                        }
+                    }
+                }
+            }
+        case .right:
+            recruscentPassage { out in
+                self.iterate { xCoordinate, yCoordinate, index in
+                    if self.storage[index] != nil && xCoordinate > 1 {
+                        let nextIndex = index - 1
+                        if self.summ(from: nextIndex, to: index) {
+                            self.move(direction)
+                            out = false
+                            isSuccess = true
+                        }
+                    }
+                }
+            }
+        }
+        return isSuccess
+    }
+    
+    fileprivate mutating func summ(from: Int, to: Int) -> Bool {
+        if let elementFrom = self.storage[from],
+           let elementTo = self.storage[to],
+           elementFrom == elementTo {
+            self.storage[to] = elementFrom + elementTo
+            self.storage[from] = nil
+            return true
+        }
+        return false
+    }
 }
