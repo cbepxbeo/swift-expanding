@@ -18,7 +18,7 @@
  |  Last update: January 11th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
- |  Status: #In progress | #Decorated
+ |  Status: #Completed | #Decorated
  |---------------------------------------------------------------------------------------
  
  */
@@ -66,15 +66,13 @@ extension Matrix where Element: SignedNumeric {
         func sharedProcess(
             condition: ((x: Int, y: Int)) -> Bool,
             nextIndex: (_ index: Int) -> Int){
-                recruscentPassage { out in
-                    self.iterate { x, y, index in
-                        if self.storage[index] != nil && condition((x, y)) {
-                            let nextIndex = nextIndex(index)
-                            if combineAndClear(from: nextIndex, to: index) {
-                                self.move(direction)
-                                out = false
-                                isSuccess = true
-                            }
+                self.iterateRecursively { x, y, index, out in
+                    if self.storage[index] != nil && condition((x, y)) {
+                        let nextIndex = nextIndex(index)
+                        if combineAndClear(from: nextIndex, to: index) {
+                            self.move(direction)
+                            out = false
+                            isSuccess = true
                         }
                     }
                 }
@@ -107,4 +105,10 @@ extension Matrix where Element: SignedNumeric {
         }
         return isSuccess
     }
+    
+    
+    
+    
+    
+    
 }
