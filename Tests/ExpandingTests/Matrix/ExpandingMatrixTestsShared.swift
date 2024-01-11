@@ -23,7 +23,7 @@ import XCTest
 @testable import Expanding
 
 final class ExpandingMatrixTestsShared: XCTestCase {
-    func testIterator() throws {
+    func testIteratorIndex() throws {
         func worker(column: Int, row: Int, output: inout Bool) throws {
             let matrix = Matrix(
                 column: column,
@@ -46,7 +46,6 @@ final class ExpandingMatrixTestsShared: XCTestCase {
         }
         XCTAssert(output)
     }
-    
     func testInvertMethod(){
         let count = 10
         let range = (1...(count * count))
