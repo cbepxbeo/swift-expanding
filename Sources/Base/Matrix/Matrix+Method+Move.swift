@@ -31,7 +31,9 @@ extension Matrix {
                 self.iterate { xCoordinate, yCoordinate, index in
                     if self.storage[index] == nil && yCoordinate < self.row {
                         let nextIndex = index + self.column
-                        out = !self.rearrangement(from: nextIndex, to: index)
+                        if self.rearrangement(from: nextIndex, to: index) {
+                            out = false
+                        }
                     }
                 }
             }
@@ -40,7 +42,9 @@ extension Matrix {
                 self.iterate{ xCoordinate, yCoordinate, index in
                     if self.storage[index] == nil && yCoordinate > 1 {
                         let nextIndex = index - self.column
-                        out = !self.rearrangement(from: nextIndex, to: index)
+                        if self.rearrangement(from: nextIndex, to: index) {
+                            out = false
+                        }
                     }
                 }
             }
@@ -49,7 +53,9 @@ extension Matrix {
                 self.iterate{ xCoordinate, yCoordinate, index in
                     if self.storage[index] == nil && xCoordinate < self.column {
                         let nextIndex = index + 1
-                        out = !self.rearrangement(from: nextIndex, to: index)
+                        if self.rearrangement(from: nextIndex, to: index) {
+                            out = false
+                        }
                     }
                 }
             }
@@ -58,7 +64,9 @@ extension Matrix {
                 self.iterate { xCoordinate, yCoordinate, index in
                     if self.storage[index] == nil && xCoordinate > 1 {
                         let nextIndex = index - 1
-                        out = !self.rearrangement(from: nextIndex, to: index)
+                        if self.rearrangement(from: nextIndex, to: index) {
+                            out = false
+                        }
                     }
                 }
             }
