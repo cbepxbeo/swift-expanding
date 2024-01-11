@@ -18,12 +18,48 @@
  |  Last update: January 11th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
- |  Status: #In progress | #Not decorated
+ |  Status: #In progress | #Decorated
  |---------------------------------------------------------------------------------------
  
  */
 
 extension Matrix where Element: SignedNumeric {
+    ///Moves all elements according to the direction and sums those identical ones that have the same direction.
+    ///
+    ///Example with moving elements up
+    ///
+    ///     //Row 1:          | nil |  1  | nil | nil |
+    ///     //Row 2:          | nil |  1  |  2  | nil |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          | nil |  2  |  2  | nil |
+    ///     //Row 4:          | nil |  1  | nil | nil |
+    ///
+    ///     matrix.summationIdentical(.upward)
+    ///
+    ///     //Row 1:          | nil |  4  |  4  | nil |
+    ///     //Row 2:          | nil |  1  | nil | nil |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          | nil | nil | nil | nil |
+    ///     //Row 4:          | nil | nil | nil | nil |
+    ///
+    ///Example with moving elements left
+    ///
+    ///     //Row 1:          | nil |  1  | nil | nil |
+    ///     //Row 2:          | nil |  1  |  2  | nil |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          | nil |  2  |  2  | nil |
+    ///     //Row 4:          | nil |  1  | nil | nil |
+    ///
+    ///     matrix.summationIdentical(.left)
+    ///
+    ///     //Row 1:          |  1  | nil | nil | nil |
+    ///     //Row 2:          |  1  |  2  | nil | nil |
+    ///     //Row 3:          | nil | nil | nil | nil |
+    ///     //Row 4:          |  4  | nil | nil | nil |
+    ///     //Row 4:          |  1  | nil | nil | nil |
+    ///
+    /// - Parameter direction: The direction in which the elements will move
+    /// - Returns: Execution status. If there is nothing to move, false will be returned
     @discardableResult
     public mutating func summationIdentical(_ direction: Matrix.Direction) -> Bool {
         //General process logic
@@ -31,8 +67,8 @@ extension Matrix where Element: SignedNumeric {
             condition: ((x: Int, y: Int)) -> Bool,
             nextIndex: (_ index: Int) -> Int){
                 recruscentPassage { out in
-                    self.iterate { xCoordinate, yCoordinate, index in
-                        if self.storage[index] != nil && condition((xCoordinate, yCoordinate)) {
+                    self.iterate { x, y, index in
+                        if self.storage[index] != nil && condition((x, y)) {
                             let nextIndex = nextIndex(index)
                             if combineAndClear(from: nextIndex, to: index) {
                                 self.move(direction)
