@@ -24,7 +24,7 @@
  */
 
 extension Matrix {
-    public mutating func rearrangement(from: Int, to: Int) -> Bool{
+    public mutating func rearrangement(from: Int, to: Int) -> Bool {
         if self.storage[from] != nil {
             self.storage[to] = self.storage[from]
             self.storage[from] = nil
