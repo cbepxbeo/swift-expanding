@@ -26,73 +26,49 @@
 extension Matrix where Element: SignedNumeric {
     @discardableResult
     public mutating func summationIdentical(_ direction: Matrix.Direction) -> Bool {
+        //General process logic
+        func sharedProcess(
+            condition: ((x: Int, y: Int)) -> Bool,
+            nextIndex: (_ index: Int) -> Int){
+                recruscentPassage { out in
+                    self.iterate { xCoordinate, yCoordinate, index in
+                        if self.storage[index] != nil && condition((xCoordinate, yCoordinate)) {
+                            let nextIndex = nextIndex(index)
+                            if combineAndClear(from: nextIndex, to: index) {
+                                self.move(direction)
+                                out = false
+                                isSuccess = true
+                            }
+                        }
+                    }
+                }
+        }
+        //If the elements are the same, then the destination will
+        //be assigned double the result and the original value cleared
+        func combineAndClear(from: Int, to: Int) -> Bool {
+            if let elementFrom = self.storage[from],
+               let elementTo = self.storage[to],
+               elementFrom == elementTo {
+                self.storage[to] = elementFrom + elementTo
+                self.storage[from] = nil
+                return true
+            }
+            return false
+        }
+        //Pre-movement
         self.move(direction)
+        //Return value
         var isSuccess: Bool = false
         switch direction {
         case .upward:
-            recruscentPassage { out in
-                self.iterate { xCoordinate, yCoordinate, index in
-                    if self.storage[index] != nil && yCoordinate < self.row {
-                        let nextIndex = index + self.column
-                        if self.summ(from: nextIndex, to: index) {
-                            self.move(direction)
-                            out = false
-                            isSuccess = true
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.y < self.row }, nextIndex: { $0 + self.column })
         case .downward:
-            recruscentPassage { out in
-                self.iterate{ xCoordinate, yCoordinate, index in
-                    if self.storage[index] != nil && yCoordinate > 1 {
-                        let nextIndex = index - self.column
-                        if self.summ(from: nextIndex, to: index) {
-                            self.move(direction)
-                            out = false
-                            isSuccess = true
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.y > 1 }, nextIndex: { $0 - self.column })
         case .left:
-            recruscentPassage { out in
-                self.iterate{ xCoordinate, yCoordinate, index in
-                    if self.storage[index] != nil && xCoordinate < self.column {
-                        let nextIndex = index + 1
-                        if self.summ(from: nextIndex, to: index) {
-                            self.move(direction)
-                            out = false
-                            isSuccess = true
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.x < self.column }, nextIndex: { $0 + 1 })
         case .right:
-            recruscentPassage { out in
-                self.iterate { xCoordinate, yCoordinate, index in
-                    if self.storage[index] != nil && xCoordinate > 1 {
-                        let nextIndex = index - 1
-                        if self.summ(from: nextIndex, to: index) {
-                            self.move(direction)
-                            out = false
-                            isSuccess = true
-                        }
-                    }
-                }
-            }
+            sharedProcess(condition: { $0.x > 1 }, nextIndex: { $0 - 1 })
         }
         return isSuccess
-    }
-    
-    fileprivate mutating func summ(from: Int, to: Int) -> Bool {
-        if let elementFrom = self.storage[from],
-           let elementTo = self.storage[to],
-           elementFrom == elementTo {
-            self.storage[to] = elementFrom + elementTo
-            self.storage[from] = nil
-            return true
-        }
-        return false
     }
 }
