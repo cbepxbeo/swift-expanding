@@ -12,24 +12,28 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix+Method+Rearrangement.swift
+ |  File: Matrix+Method+IterateRecursively.swift
  |  Created by: Egor Boyko
- |  Date: January 10th, 2024
- |  Last update: January 10th, 2024
+ |  Date: January 11th, 2024
+ |  Last update: January 11th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
- |  Status: #In progress | #Not decorated
+ |  Status: #Completed | #Decorated
  |---------------------------------------------------------------------------------------
  
  */
 
 extension Matrix {
-    public mutating func rearrangement(from: Int, to: Int) -> Bool {
-        if self.storage[from] != nil {
-            self.storage[to] = self.storage[from]
-            self.storage[from] = nil
-            return true
+    ///Recursively iterates through all elements, passing a pass-through parameter to exit into the body of the passed block.
+    /// - Parameter block: A block that will be executed for each matrix element with access to coordinates and index
+    /// - Note: Unlike the classical approach to recursion, the method requires set false
+    /// in the end-to-end parameter, otherwise execution will stop
+    public func iterateRecursively(
+        block: (_ x: Int, _ y: Int, _ index: Int, _ out: inout Bool) -> ()){
+        recruscentPassage { out in
+            self.iterate { x, y, index in
+                block(x, y, index, &out)
+            }
         }
-        return false
     }
 }
