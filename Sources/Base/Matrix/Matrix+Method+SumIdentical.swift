@@ -101,10 +101,4 @@ extension Matrix where Element: SignedNumeric {
         }
         return output
     }
-    
-    
-    
-    
-    
-    
 }

@@ -23,35 +23,5 @@ import XCTest
 @testable import Expanding
 
 final class ExpandingMatrixMethodSummationIdenticalTests: XCTestCase {
-    func testUpward() throws {
-//        let input: [Int?] = [
-//            1,      nil,    2,      nil,    nil,    1,
-//            nil,    nil,    2,    1,      nil,    nil,
-//            nil,    nil,    2,      nil,    nil,    nil,
-//            nil,    nil,    2,    1,      nil,    nil,
-//            nil,    nil,    2,      nil,    nil,    nil,
-//            1,      nil,    2,    1,      nil,    1,
-//        ]
-//        let input: [Int?] = [
-//            nil, 1, nil, nil,
-//            nil, 1, 2, nil,
-//            nil, nil, nil, nil,
-//            nil, 2, 2, nil,
-//            nil, 1, nil, nil,
-//        ]
-        let input: [Int?] = [
-            7, 1, 7, 7,
-            7, 7, 7, 7,
-            7, 1, 7, 7,
-            7, 7, 7, 7,
-            7, 2, 7, 7,
-        ]
-        var matrix = Matrix(column: 4, row: 5, storage: input)
-        //matrix.summationIdentical(.upward)
-        //print( matrix.summationIdentical(.upward))
-        print(matrix.summationIdentical(.left, emptyCell: 7))
-        print(matrix)
-        print(matrix.summationIdentical(.upward))
-        //XCTAssert(matrix.storage == output)
-    }
+    func testUpward() throws {}
 }
