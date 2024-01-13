@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix+Method+Rearrangement.swift
+ |  File: Matrix+Method+Rearrange.swift
  |  Created by: Egor Boyko
  |  Date: January 9th, 2024
  |  Last update: January 13th, 2024
@@ -34,7 +34,7 @@ extension Matrix {
     ///     //Row 4:          | nil |  2  |  2  | nil |
     ///     //Row 4:          | nil |  1  | nil | nil |
     ///
-    ///     matrix.rearrangement(in: .upward)
+    ///     matrix.rearrange(in: .upward)
     ///
     ///     //Row 1:          | nil |  1  |  2  | nil |
     ///     //Row 2:          | nil |  1  |  2  | nil |
@@ -50,7 +50,7 @@ extension Matrix {
     ///     //Row 4:          | nil |  2  |  2  | nil |
     ///     //Row 4:          |  1  | nil | nil |  1  |
     ///
-    ///     matrix.rearrangement(in: .left)
+    ///     matrix.rearrange(in: .left)
     ///
     ///     //Row 1:          |  1  | nil | nil | nil |
     ///     //Row 2:          |  1  |  2  | nil | nil |
@@ -59,7 +59,7 @@ extension Matrix {
     ///     //Row 4:          |  1  |  1  | nil | nil |
     ///
     /// - Parameter direction: The direction in which the elements will move
-    public mutating func rearrangement(in direction: Matrix.Direction) {
+    public mutating func rearrange(in direction: Matrix.Direction) {
         //General process logic
         func sharedProcess(
             condition: ((x: Int, y: Int)) -> Bool,
@@ -67,13 +67,13 @@ extension Matrix {
                 self.iterateRecursively{ x, y, index, out in
                     if self.storage[index] == nil && condition((x, y)) {
                         let nextIndex = nextIndex(index)
-                        rearrangeAndClean(from: nextIndex, to: index, out: &out)
+                        rearrangeItemWithClean(from: nextIndex, to: index, out: &out)
                     }
                 }
         }
         //If an element exists in the source cell, it will be copied to the
         //destination cell, and then the source cell will be reset to nil
-        func rearrangeAndClean(from: Int, to: Int, out: inout Bool){
+        func rearrangeItemWithClean(from: Int, to: Int, out: inout Bool){
             if self.storage[from] != nil {
                 self.storage[to] = self.storage[from]
                 self.storage[from] = nil

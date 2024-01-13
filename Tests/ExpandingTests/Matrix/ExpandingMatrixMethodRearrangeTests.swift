@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: ExpandingMatrixMethodRearrangementTests.swift
+ |  File: ExpandingMatrixMethodRearrangeTests.swift
  |  Created by: Egor Boyko
  |  Date: January 11th, 2023
  |---------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 import XCTest
 @testable import Expanding
 
-final class ExpandingMatrixMethodRearrangementTests: XCTestCase {
+final class ExpandingMatrixMethodRearrangeTests: XCTestCase {
     func testDownward() throws {
         let input: [Int?] = [
             1,      nil,    1,      nil,    nil,    1,
@@ -41,7 +41,7 @@ final class ExpandingMatrixMethodRearrangementTests: XCTestCase {
             1,      nil,    1,      1,      nil,    1,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.rearrangement(in: .downward)
+        matrix.rearrange(in: .downward)
         XCTAssert(matrix.storage == output)
     }
     func testUpward() throws {
@@ -62,7 +62,7 @@ final class ExpandingMatrixMethodRearrangementTests: XCTestCase {
             nil,    nil,    nil,    nil,    nil,    nil,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.rearrangement(in: .upward)
+        matrix.rearrange(in: .upward)
         XCTAssert(matrix.storage == output)
     }
     func testLeft() throws {
@@ -83,7 +83,7 @@ final class ExpandingMatrixMethodRearrangementTests: XCTestCase {
             1,      1,      nil,    nil,    nil,    nil,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.rearrangement(in: .left)
+        matrix.rearrange(in: .left)
         XCTAssert(matrix.storage == output)
     }
     func testRight() throws {
@@ -104,7 +104,7 @@ final class ExpandingMatrixMethodRearrangementTests: XCTestCase {
             nil,    nil,    nil,    nil,    1,      1,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.rearrangement(in: .right)
+        matrix.rearrange(in: .right)
         XCTAssert(matrix.storage == output)
     }
 }
