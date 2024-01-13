@@ -32,4 +32,5 @@ public enum MatrixError: Error {
     case negativeCoordinate(message: String)
     case zeroCoordinate(message: String)
     case wrongStructure(message: String)
+    case matricesNotIdenticalStructure
 }
