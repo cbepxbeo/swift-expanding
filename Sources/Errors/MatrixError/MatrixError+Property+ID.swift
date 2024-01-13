@@ -42,6 +42,8 @@ extension MatrixError {
             7
         case .wrongStructure(_):
             8
+        case .matricesNotIdenticalStructure:
+            9
         }
     }
 }
