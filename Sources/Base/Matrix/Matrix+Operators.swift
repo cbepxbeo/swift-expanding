@@ -24,21 +24,15 @@
  */
 
 extension Matrix where Element: SignedNumeric {
-    public static func +(lhs: Self, rhs: Self) -> Self {
-        var row = Swift.max(lhs.row, rhs.row)
-        var column =  Swift.max(lhs.column, rhs.column)
-        
-        if row < 1 { row = 1 }
-        
-        if column < 1 { column = 1 }
-        var newMatrix = try! Matrix(column: column, row: row, element: Element.self)
-        
-        lhs.forEach{ (x, y, element) in
-            try? newMatrix.addTo(element ?? 0, x: x, y: y)
+    public static func +(lhs: Self, rhs: Self) throws -> Self {
+        if lhs.column != rhs.column || lhs.row != rhs.row {
+            throw MatrixError.matricesNotIdenticalStructure
         }
-        
-        rhs.forEach { (x, y, element) in
-            try? newMatrix.addTo(element ?? 0, x: x, y: y)
+        var newMatrix = Matrix(column: lhs.column, row: lhs.row, storage: lhs.storage)
+        rhs.forEach{ (x, y, element) in
+            if let element {
+                try? newMatrix.addTo(element, x: x, y: y)
+            }
         }
         return newMatrix
     }
