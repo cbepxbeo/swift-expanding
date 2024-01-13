@@ -98,4 +98,14 @@ final class ExpandingMatrixOperatorsTests: XCTestCase {
         XCTAssert(output)
     }
     
+    func testOperatorDivision() throws {
+        let arrayOutput = (0...15).map{ self.arrayB[$0] / self.arrayA[$0] }
+        let matrixA = Matrix(column: self.count, row: self.count, storage: self.arrayA)
+        let matrixB = Matrix(column: self.count, row: self.count, storage: self.arrayB)
+        let matrixOutput = Matrix(column: self.count, row: self.count, storage: arrayOutput)
+        
+        let output = try matrixB / matrixA
+        print(output)
+        XCTAssert(output == matrixOutput)
+    }
 }

@@ -15,7 +15,7 @@
  |  File: Matrix+Operators.swift
  |  Created by: Egor Boyko
  |  Date: January 6th, 2024
- |  Last update: January 7th, 2024
+ |  Last update: January 13th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -53,7 +53,37 @@ extension Matrix where Element: SignedNumeric {
         }
         return newMatrix
     }
-    
-    
+}
+
+extension Matrix where Element: DivisibleNumeric {
+    public static func /(lhs: Self, rhs: Self) throws -> Self {
+        func check(a: Element, b: Element, x: Int, y: Int) throws {
+            if a == 0  {
+                throw MatrixError
+                    .cannotBeDividedByZero(message: "Matrix: \(lhs.self), x: \(x), y: \(y)")
+            }
+            if b == 0 {
+                throw MatrixError
+                    .cannotBeDividedByZero(message: "Matrix: \(rhs.self), x: \(x), y: \(y)")
+            }
+        }
+        
+        if lhs.column != rhs.column || lhs.row != rhs.row {
+            throw MatrixError.matricesNotIdenticalStructure
+        }
+        var newMatrix = try Matrix(column: lhs.column, row: lhs.row, element: Element.self)
+        try lhs.forEach{ (x, y, element) in
+            if element != nil || (try? rhs.receive(x: x, y: y)) != nil {
+                let a = element ?? 1
+                let b = (try? rhs.receive(x: x, y: y)) ?? 1
+                try check(a: a, b: b, x: x, y: y)
+                try newMatrix.set(a / b, x: x, y: y)
+            } else if let a = element, let b = try? rhs.receive(x: x, y: y) {
+                try check(a: a, b: b, x: x, y: y)
+                try newMatrix.set(a / b, x: x, y: y)
+            }
+        }
+        return newMatrix
+    }
 }
 
