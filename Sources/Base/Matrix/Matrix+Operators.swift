@@ -36,5 +36,24 @@ extension Matrix where Element: SignedNumeric {
         }
         return newMatrix
     }
+    
+    public static func *(lhs: Self, rhs: Self) throws -> Self {
+        if lhs.column != rhs.column || lhs.row != rhs.row {
+            throw MatrixError.matricesNotIdenticalStructure
+        }
+        var newMatrix = try Matrix(column: lhs.column, row: lhs.row, element: Element.self)
+        try lhs.forEach{ (x, y, element) in
+            if element != nil || (try? rhs.receive(x: x, y: y)) != nil {
+                let a = element ?? 1
+                let b = (try? rhs.receive(x: x, y: y)) ?? 1
+                try newMatrix.set(a * b, x: x, y: y)
+            } else if let a = element, let b = try? rhs.receive(x: x, y: y) {
+                try newMatrix.set(a * b, x: x, y: y)
+            }
+        }
+        return newMatrix
+    }
+    
+    
 }
 
