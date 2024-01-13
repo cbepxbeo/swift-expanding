@@ -33,5 +33,5 @@ public enum MatrixError: Error {
     case zeroCoordinate(message: String)
     case wrongStructure(message: String)
     case matricesNotIdenticalStructure
-    case cannotBeDividedByZero
+    case cannotBeDividedByZero(message: String)
 }

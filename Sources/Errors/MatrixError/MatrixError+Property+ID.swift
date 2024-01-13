@@ -44,7 +44,7 @@ extension MatrixError {
             8
         case .matricesNotIdenticalStructure:
             9
-        case .cannotBeDividedByZero:
+        case .cannotBeDividedByZero(_):
             10
         }
     }
