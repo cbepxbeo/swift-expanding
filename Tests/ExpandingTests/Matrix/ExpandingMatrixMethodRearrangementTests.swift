@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: ExpandingMatrixMethodMoveTests.swift
+ |  File: ExpandingMatrixMethodRearrangementTests.swift
  |  Created by: Egor Boyko
  |  Date: January 11th, 2023
  |---------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@
 import XCTest
 @testable import Expanding
 
-final class ExpandingMatrixMethodMoveTests: XCTestCase {
+final class ExpandingMatrixMethodRearrangementTests: XCTestCase {
     func testDownward() throws {
         let input: [Int?] = [
             1,      nil,    1,      nil,    nil,    1,
@@ -41,7 +41,7 @@ final class ExpandingMatrixMethodMoveTests: XCTestCase {
             1,      nil,    1,      1,      nil,    1,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.move(.downward)
+        matrix.rearrangement(in: .downward)
         XCTAssert(matrix.storage == output)
     }
     func testUpward() throws {
@@ -62,7 +62,7 @@ final class ExpandingMatrixMethodMoveTests: XCTestCase {
             nil,    nil,    nil,    nil,    nil,    nil,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.move(.upward)
+        matrix.rearrangement(in: .upward)
         XCTAssert(matrix.storage == output)
     }
     func testLeft() throws {
@@ -83,7 +83,7 @@ final class ExpandingMatrixMethodMoveTests: XCTestCase {
             1,      1,      nil,    nil,    nil,    nil,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.move(.left)
+        matrix.rearrangement(in: .left)
         XCTAssert(matrix.storage == output)
     }
     func testRight() throws {
@@ -104,7 +104,7 @@ final class ExpandingMatrixMethodMoveTests: XCTestCase {
             nil,    nil,    nil,    nil,    1,      1,
         ]
         var matrix = Matrix(column: 6, row: 6, storage: input)
-        matrix.move(.right)
+        matrix.rearrangement(in: .right)
         XCTAssert(matrix.storage == output)
     }
 }

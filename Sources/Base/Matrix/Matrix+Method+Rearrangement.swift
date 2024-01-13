@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Matrix+Method+Move.swift
+ |  File: Matrix+Method+Rearrangement.swift
  |  Created by: Egor Boyko
  |  Date: January 9th, 2024
- |  Last update: January 11th, 2024
+ |  Last update: January 13th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #Completed | #Decorated
@@ -26,7 +26,7 @@
 extension Matrix {
     ///Moves all elements in a specific direction
     ///
-    ///Example with moving elements up
+    ///Example with rearranging elements up
     ///
     ///     //Row 1:          | nil |  1  | nil | nil |
     ///     //Row 2:          | nil |  1  |  2  | nil |
@@ -34,7 +34,7 @@ extension Matrix {
     ///     //Row 4:          | nil |  2  |  2  | nil |
     ///     //Row 4:          | nil |  1  | nil | nil |
     ///
-    ///     matrix.move(.upward)
+    ///     matrix.rearrangement(in: .upward)
     ///
     ///     //Row 1:          | nil |  1  |  2  | nil |
     ///     //Row 2:          | nil |  1  |  2  | nil |
@@ -42,7 +42,7 @@ extension Matrix {
     ///     //Row 4:          | nil |  1  | nil | nil |
     ///     //Row 4:          | nil | nil | nil | nil |
     ///
-    ///Example with moving elements left
+    ///Example with rearranging elements left
     ///
     ///     //Row 1:          | nil | nil |  1  | nil |
     ///     //Row 2:          | nil |  1  | nil |  2  |
@@ -50,7 +50,7 @@ extension Matrix {
     ///     //Row 4:          | nil |  2  |  2  | nil |
     ///     //Row 4:          |  1  | nil | nil |  1  |
     ///
-    ///     matrix.move(.left)
+    ///     matrix.rearrangement(in: .left)
     ///
     ///     //Row 1:          |  1  | nil | nil | nil |
     ///     //Row 2:          |  1  |  2  | nil | nil |
@@ -59,7 +59,7 @@ extension Matrix {
     ///     //Row 4:          |  1  |  1  | nil | nil |
     ///
     /// - Parameter direction: The direction in which the elements will move
-    public mutating func move(_ direction: Matrix.Direction, emptyCell: Element? = nil) {
+    public mutating func rearrangement(in direction: Matrix.Direction) {
         //General process logic
         func sharedProcess(
             condition: ((x: Int, y: Int)) -> Bool,
@@ -67,13 +67,13 @@ extension Matrix {
                 self.iterateRecursively{ x, y, index, out in
                     if self.storage[index] == nil && condition((x, y)) {
                         let nextIndex = nextIndex(index)
-                        moveAndclean(from: nextIndex, to: index, out: &out)
+                        rearrangeAndClean(from: nextIndex, to: index, out: &out)
                     }
                 }
         }
         //If an element exists in the source cell, it will be copied to the
         //destination cell, and then the source cell will be reset to nil
-        func moveAndclean(from: Int, to: Int, out: inout Bool){
+        func rearrangeAndClean(from: Int, to: Int, out: inout Bool){
             if self.storage[from] != nil {
                 self.storage[to] = self.storage[from]
                 self.storage[from] = nil

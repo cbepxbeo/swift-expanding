@@ -15,7 +15,7 @@
  |  File: Matrix+Method+SummationIdentical.swift
  |  Created by: Egor Boyko
  |  Date: January 11th, 2024
- |  Last update: January 11th, 2024
+ |  Last update: January 13th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #Completed | #Decorated
@@ -70,7 +70,7 @@ extension Matrix where Element: SignedNumeric {
                     if self.storage[index] != nil && condition((x, y)) {
                         let nextIndex = nextIndex(index)
                         if combineAndClear(from: nextIndex, to: index) {
-                            self.move(direction)
+                            self.rearrangement(in: direction)
                             out = false
                             isSuccess = true
                         }
@@ -90,7 +90,7 @@ extension Matrix where Element: SignedNumeric {
             return false
         }
         //Pre-movement
-        self.move(direction)
+        self.rearrangement(in: direction)
         //Return value
         var isSuccess: Bool = false
         switch direction {
