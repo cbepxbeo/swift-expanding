@@ -23,6 +23,31 @@
  
  */
 
+///Two-dimensional array with a known size. Similar to a dictionary, when accessing coordinates for which
+///there is no element, an optional value is returned.
+///
+///You can create a matrix by specifying the type that will be contained without filling in the values
+///
+///     let matrix = try? Matrix(column: 4, row: 5, element: Int.self)
+///
+///     //Row 1:          | nil | nil | nil | nil |
+///     //Row 2:          | nil | nil | nil | nil |
+///     //Row 3:          | nil | nil | nil | nil |
+///     //Row 4:          | nil | nil | nil | nil |
+///     //Row 4:          | nil | nil | nil | nil |
+///
+///You can also create a matrix filled with default values
+///
+///     let matrix = try? Matrix(column: 4, row: 5, defaultValue: 0)
+///
+///     //Row 1:          | 0 | 0 | 0 | 0 |
+///     //Row 2:          | 0 | 0 | 0 | 0 |
+///     //Row 3:          | 0 | 0 | 0 | 0 |
+///     //Row 4:          | 0 | 0 | 0 | 0 |
+///     //Row 4:          | 0 | 0 | 0 | 0 |
+///
+/// - Note: A matrix is a data structure and although some mathematical operations
+/// are supported, this type should not be confused with a matrix in algebra.
 public struct Matrix<Element> {
     internal(set) public var column: Int
     internal(set) public var row: Int
