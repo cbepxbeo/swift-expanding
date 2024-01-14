@@ -32,7 +32,7 @@ final class ExpandingMatrixMethodMergeTests: XCTestCase {
         var matrixA = Matrix(column: 3, row: 3, storage: self.arrayA)
         let matrixB = Matrix(column: 4, row: 4, storage: self.arrayB)
         let output = Matrix(column: 4, row: 4, storage: self.output)
-        try matrixA.merge(with: matrixB)
+        matrixA.merge(with: matrixB)
         XCTAssert(matrixA == output)
     }
     
@@ -40,8 +40,7 @@ final class ExpandingMatrixMethodMergeTests: XCTestCase {
         var matrixA = Matrix(column: 4, row: 4, storage: self.arrayB)
         let matrixB = Matrix(column: 3, row: 3, storage: self.arrayA)
         let output = Matrix(column: 4, row: 4, storage: self.output)
-        try matrixA.merge(with: matrixB)
+        matrixA.merge(with: matrixB)
         XCTAssert(matrixA == output)
     }
-    
 }
