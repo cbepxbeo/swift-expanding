@@ -28,7 +28,7 @@ extension Matrix {
     @discardableResult
     public func check(x xCoordinate: Int) throws -> Bool{
         guard xCoordinate != 0 else {
-            throw MatrixError.zeroCoordinate("x: \(xCoordinate)")
+            throw MatrixError.zeroCoordinate("x")
         }
         guard xCoordinate > 0 else {
             throw MatrixError.negativeCoordinate("x: \(xCoordinate)")
@@ -42,7 +42,7 @@ extension Matrix {
     @discardableResult
     public func check(y yCoordinate: Int) throws -> Bool{
         guard yCoordinate != 0 else {
-            throw MatrixError.zeroCoordinate("y: \(yCoordinate)")
+            throw MatrixError.zeroCoordinate("y")
         }
         guard yCoordinate > 0 else {
             throw MatrixError.negativeCoordinate("y: \(yCoordinate)")

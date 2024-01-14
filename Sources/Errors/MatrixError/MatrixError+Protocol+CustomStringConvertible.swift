@@ -25,6 +25,9 @@
 
 extension MatrixError: CustomStringConvertible {
     public var description: String {
+        "Matrix error. " + self.errorDescription
+    }
+    var errorDescription: String {
         switch self {
         case .indexOfRange(let index):
             "Index of range: \(index)"
