@@ -15,7 +15,7 @@
  |  File: NumberSequence.swift
  |  Created by: Egor Boyko
  |  Date: January 13th, 2024
- |  Last update: January 13th, 2024
+ |  Last update: January 14th, 2024
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -27,5 +27,12 @@ public protocol DivisibleNumeric: SignedNumeric {
     static func /(lhs: Self, rhs: Self) -> Self
 }
 
+extension Int8: DivisibleNumeric {}
+extension Int16: DivisibleNumeric {}
+extension Int32: DivisibleNumeric {}
+extension Int64: DivisibleNumeric {}
 extension Int: DivisibleNumeric {}
+extension Float : DivisibleNumeric {}
 extension Double: DivisibleNumeric {}
+@available(macOS 11.0, *)
+extension Float16: DivisibleNumeric {}
