@@ -108,4 +108,43 @@ final class ExpandingMatrixOperatorsTests: XCTestCase {
         print(output)
         XCTAssert(output == matrixOutput)
     }
+    
+    func testOperatorDivisionWithOptionalValues() throws {
+        let matrixA = Matrix(column: self.count, row: self.count, storage: self.arrayWithOptional)
+        let matrixB = Matrix(column: self.count, row: self.count, storage: self.arrayOnlyOptional)
+    
+        let outputA = try matrixA / matrixB
+        let outputB = try matrixB / matrixA
+
+        //If the value is divided by nil,
+        //then nothing happens and the value remains unchanged
+        XCTAssert(outputA == matrixA)
+        //If the nil is divided into something,
+        //then the division should not occur and the nil will remain
+        XCTAssert(outputB == matrixB)
+    }
+    
+    func testOperatorDivisionWithError() throws {
+        var matrixA = try Matrix(column: 5, row: 5, element: Int.self)
+        var matrixB = try Matrix(column: 4, row: 4, element: Int.self)
+
+        var output: Bool = false
+        do {
+            let _ = try matrixA / matrixB
+        } catch let error as MatrixError where error == .matricesNotIdenticalStructure {
+            output = true
+        }
+        XCTAssert(output)
+        output = false
+        matrixA = Matrix(column: 2, row: 2, storage: [1,2,3,4])
+        matrixB = Matrix(column: 2, row: 2, storage: [1,1,0,1])
+        do {
+            let _ = try matrixA / matrixB
+        } catch let error as MatrixError where error == .cannotBeDividedByZero(message: "") {
+            output = true
+        }
+        XCTAssert(output)
+    }
+    
+    
 }
