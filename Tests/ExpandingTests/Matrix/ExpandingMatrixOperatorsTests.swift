@@ -140,7 +140,7 @@ final class ExpandingMatrixOperatorsTests: XCTestCase {
         matrixB = Matrix(column: 2, row: 2, storage: [1,1,0,1])
         do {
             let _ = try matrixA / matrixB
-        } catch let error as MatrixError where error == .cannotBeDividedByZero(message: "") {
+        } catch let error as MatrixError where error == .cannotBeDividedByZero("") {
             output = true
         }
         XCTAssert(output)

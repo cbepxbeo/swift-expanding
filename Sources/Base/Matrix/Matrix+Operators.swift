@@ -66,7 +66,7 @@ extension Matrix where Element: DivisibleNumeric {
                 let b = (try? rhs.receive(x: x, y: y)) ?? 1
                 if b == 0 {
                     throw MatrixError
-                        .cannotBeDividedByZero(message: "Matrix: \(rhs.self), x: \(x), y: \(y)")
+                        .cannotBeDividedByZero("Matrix: \(rhs.self), x: \(x), y: \(y)")
                 }
                 try newMatrix.set(a / b, x: x, y: y)
             }

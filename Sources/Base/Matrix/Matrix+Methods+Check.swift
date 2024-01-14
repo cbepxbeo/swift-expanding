@@ -28,13 +28,13 @@ extension Matrix {
     @discardableResult
     public func check(x xCoordinate: Int) throws -> Bool{
         guard xCoordinate != 0 else {
-            throw MatrixError.zeroCoordinate(message: "x: \(xCoordinate)")
+            throw MatrixError.zeroCoordinate("x: \(xCoordinate)")
         }
         guard xCoordinate > 0 else {
-            throw MatrixError.negativeCoordinate(message: "x: \(xCoordinate)")
+            throw MatrixError.negativeCoordinate("x: \(xCoordinate)")
         }
         guard xCoordinate <= self.column else {
-            throw MatrixError.columnOfRange
+            throw MatrixError.columnOfRange(xCoordinate)
         }
         return true
     }
@@ -42,13 +42,13 @@ extension Matrix {
     @discardableResult
     public func check(y yCoordinate: Int) throws -> Bool{
         guard yCoordinate != 0 else {
-            throw MatrixError.zeroCoordinate(message: "y: \(yCoordinate)")
+            throw MatrixError.zeroCoordinate("y: \(yCoordinate)")
         }
         guard yCoordinate > 0 else {
-            throw MatrixError.negativeCoordinate(message: "y: \(yCoordinate)")
+            throw MatrixError.negativeCoordinate("y: \(yCoordinate)")
         }
         guard yCoordinate <= self.row else {
-            throw MatrixError.rowOfRange
+            throw MatrixError.rowOfRange(yCoordinate)
         }
         return true
     }

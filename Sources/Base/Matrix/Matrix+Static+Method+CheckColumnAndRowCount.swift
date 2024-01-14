@@ -27,11 +27,11 @@ extension Matrix {
     static func checkColumnAndRowCount(column: Int, row: Int) throws {
         guard column > 0 else {
             throw MatrixError
-                .wrongStructure(message: "there cannot be less than one column")
+                .wrongStructure("there cannot be less than one column")
         }
         guard row > 0 else {
             throw MatrixError
-                .wrongStructure(message: "there cannot be less than one row")
+                .wrongStructure("there cannot be less than one row")
         }
     }
 }

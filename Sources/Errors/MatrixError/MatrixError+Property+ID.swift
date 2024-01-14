@@ -28,9 +28,9 @@ extension MatrixError {
         switch self {
         case .indexOfRange:
             1
-        case .columnOfRange:
+        case .columnOfRange(_):
             2
-        case .rowOfRange:
+        case .rowOfRange(_):
             3
         case .columnNotFound:
             4

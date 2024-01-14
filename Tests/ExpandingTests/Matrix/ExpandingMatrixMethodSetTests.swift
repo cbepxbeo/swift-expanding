@@ -55,7 +55,7 @@ final class ExpandingMatrixMethodSetTests: XCTestCase {
         var output: Bool = false
         do {
             try matrix.set(99, x: -1, y: count)
-        } catch let error as MatrixError where error == .negativeCoordinate(message: ""){
+        } catch let error as MatrixError where error == .negativeCoordinate(""){
             output = true
         }
         XCTAssert(output)
@@ -67,7 +67,7 @@ final class ExpandingMatrixMethodSetTests: XCTestCase {
         var output: Bool = false
         do {
             try matrix.set(99, x: count, y: -1)
-        } catch let error as MatrixError where error == .negativeCoordinate(message: ""){
+        } catch let error as MatrixError where error == .negativeCoordinate(""){
             output = true
         }
         XCTAssert(output)
@@ -79,7 +79,7 @@ final class ExpandingMatrixMethodSetTests: XCTestCase {
         var output: Bool = false
         do {
             try matrix.set(99, x: count + 1, y: count)
-        } catch let error as MatrixError where error == .columnOfRange {
+        } catch let error as MatrixError where error == .columnOfRange(0) {
             output = true
         }
         XCTAssert(output)
@@ -91,7 +91,7 @@ final class ExpandingMatrixMethodSetTests: XCTestCase {
         var output: Bool = false
         do {
             try matrix.set(99, x: count, y: count + 1)
-        } catch let error as MatrixError where error == .rowOfRange {
+        } catch let error as MatrixError where error == .rowOfRange(0) {
             output = true
         }
         XCTAssert(output)
@@ -103,7 +103,7 @@ final class ExpandingMatrixMethodSetTests: XCTestCase {
         var output = false
         do {
             try matrix.set(99, x: 0, y: count)
-        } catch let error as MatrixError where error == .zeroCoordinate(message: "") {
+        } catch let error as MatrixError where error == .zeroCoordinate("") {
             output = true
         }
         XCTAssert(output)
@@ -115,7 +115,7 @@ final class ExpandingMatrixMethodSetTests: XCTestCase {
         var output: Bool = false
         do {
             try matrix.set(99, x: count, y: 0)
-        } catch let error as MatrixError where error == .zeroCoordinate(message: "") {
+        } catch let error as MatrixError where error == .zeroCoordinate("") {
             output = true
         }
         XCTAssert(output)

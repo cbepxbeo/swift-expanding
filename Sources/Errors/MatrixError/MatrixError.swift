@@ -25,13 +25,13 @@
 
 public enum MatrixError: Error {
     case indexOfRange
-    case columnOfRange
-    case rowOfRange
+    case columnOfRange(_ column: Int)
+    case rowOfRange(_ row: Int)
     case columnNotFound
     case rowNotFound
-    case negativeCoordinate(message: String)
-    case zeroCoordinate(message: String)
-    case wrongStructure(message: String)
+    case negativeCoordinate(_ message: String)
+    case zeroCoordinate(_ message: String)
+    case wrongStructure(_ message: String)
     case matricesNotIdenticalStructure
-    case cannotBeDividedByZero(message: String)
+    case cannotBeDividedByZero(_ message: String)
 }
