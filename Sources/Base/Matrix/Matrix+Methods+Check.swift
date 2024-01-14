@@ -60,6 +60,20 @@ extension Matrix {
         }
         return true
     }
+    
+    @discardableResult
+    public func check() throws -> Bool{
+        if self.column < 1 {
+            throw MatrixError.wrongStructure("сannot be less than one column")
+        }
+        if self.row < 1 {
+            throw MatrixError.wrongStructure("сannot be less than one row")
+        }
+        if self.storage.count != self.column * self.row {
+            throw MatrixError.wrongStructure("the number of elements does not match the size")
+        }
+        return true
+    }
 }
 
 
