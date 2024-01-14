@@ -45,34 +45,5 @@ extension Matrix where Element: SignedNumeric {
     public var count: Int {
         self.storage.count
     }
-    
-    public mutating func mergearray(with matrix: Self){
-        func processing(a: [Element?], b: [Element?]) -> [Element?]{
-            var temp: [Element?] = a
-            let limit = b.count - 1
-            for index in 0...a.count - 1 {
-                if index == limit { break }
-                if let elementB = b[index] {
-                    temp[index] = (a[index] ?? 0) + elementB
-                }
-            }
-            return temp
-        }
-        
-        if self.count > matrix.count {
-            self = Matrix(
-                column: self.column,
-                row: self.row,
-                storage: processing(a: self.storage, b: matrix.storage)
-            )
-            
-        } else {
-            self = Matrix(
-                column: matrix.column,
-                row: matrix.row,
-                storage: processing(a: matrix.storage, b: self.storage)
-            )
-        }
-    }
 }
 
