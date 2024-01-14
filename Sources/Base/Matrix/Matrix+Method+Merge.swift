@@ -24,21 +24,19 @@
  */
 
 extension Matrix where Element: SignedNumeric {
-    public mutating func merge(with matrix: Self) throws{
-        try self.check()
-        try matrix.check()
-        
+    ///Merging with another matrix. The method allows merging with a matrix of a larger or smaller size.
+    public mutating func merge(with matrix: Self){
         let column = Swift.max(self.column, matrix.column)
         let row = Swift.max(self.row, matrix.row)
-        var result = try Matrix(column: column, row: row, element: Element.self)
-        try self.forEach { x, y, element in
+        var result = try! Matrix(column: column, row: row, element: Element.self)
+        self.forEach { x, y, element in
             if let element {
-                try result.addTo(element, x: x, y: y)
+                try? result.addTo(element, x: x, y: y)
             }
         }
-        try matrix.forEach { x, y, element in
+        matrix.forEach { x, y, element in
             if let element {
-                try result.addTo(element, x: x, y: y)
+                try? result.addTo(element, x: x, y: y)
             }
         }
         self = result
