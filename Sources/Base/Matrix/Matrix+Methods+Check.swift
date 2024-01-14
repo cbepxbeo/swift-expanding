@@ -62,7 +62,7 @@ extension Matrix {
     }
     
     @discardableResult
-    public func check() throws -> Bool{
+    func check() throws -> Bool{
         if self.column < 1 {
             throw MatrixError.wrongStructure("сannot be less than one column")
         }
