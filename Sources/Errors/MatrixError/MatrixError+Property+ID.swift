@@ -26,15 +26,15 @@
 extension MatrixError {
     var ID: Int {
         switch self {
-        case .indexOfRange:
+        case .indexOfRange(_):
             1
         case .columnOfRange(_):
             2
         case .rowOfRange(_):
             3
-        case .columnNotFound:
+        case .columnNotFound(_):
             4
-        case .rowNotFound:
+        case .rowNotFound(_):
             5
         case .negativeCoordinate(_):
             6

@@ -56,7 +56,7 @@ extension Matrix {
     @discardableResult
     public func check(index: Int) throws -> Bool{
         if (index > self.storage.count - 1) || index < 0 {
-            throw MatrixError.indexOfRange
+            throw MatrixError.indexOfRange(index)
         }
         return true
     }

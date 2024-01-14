@@ -24,11 +24,11 @@
  */
 
 public enum MatrixError: Error {
-    case indexOfRange
+    case indexOfRange(_ index: Int)
     case columnOfRange(_ column: Int)
     case rowOfRange(_ row: Int)
-    case columnNotFound
-    case rowNotFound
+    case columnNotFound(_ column: Int)
+    case rowNotFound(row: Int)
     case negativeCoordinate(_ message: String)
     case zeroCoordinate(_ message: String)
     case wrongStructure(_ message: String)
