@@ -32,14 +32,14 @@ extension Matrix {
     ///     //Row 2:          | 0 | 0 | 0 |
     ///     //Row 3:          | 0 | 0 | 0 |
     ///
-    ///     try? matrix.set(5, x: 2, y: 3)
+    ///     try? matrix.set(5, x: 2, y: 2)
     ///
     ///     //Row 1:          | 0 | 0 | 0 |
-    ///     //Row 2:          | 0 | 0 | 0 |
-    ///     //Row 3:          | 0 | 5 | 0 |
+    ///     //Row 2:          | 0 | 5 | 0 |
+    ///     //Row 3:          | 0 | 0 | 0 |
     ///
     /// - Parameter value: New value
-    /// - Parameter x: Coordinate corresponding to the position in the line
+    /// - Parameter x: Coordinate corresponding to the position in the row
     /// - Parameter y: Coordinate corresponding to the position in the column
     /// - Note: By calling a method in different threads on the same instance, you will not receive an exception, but the behavior will be undefined
     public mutating func set(_ value: Element, x xCoordinate: Int, y yCoordinate: Int) throws {

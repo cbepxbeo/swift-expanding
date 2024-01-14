@@ -26,7 +26,7 @@
 extension Matrix {
     ///Receiving element by coordinates.
     ///
-    ///Receiving an element without processing errors
+    ///Receiving an element without processing error
     ///
     ///     //Row 1:   | 1 | 2 | 3 |
     ///     //Row 2:   | 4 | 5 | 6 |
@@ -35,6 +35,8 @@ extension Matrix {
     ///     let element = try? matrix.receive(x: 2, y: 2)
     ///     print(element)
     ///     // print Optional(5)
+    ///
+    ///Receiving an element with processing error
     ///
     ///     do {
     ///         let _ = try matrix.receive(x: 99, y: 2)
