@@ -75,4 +75,41 @@ final class ExpandingMatrixTestsShared: XCTestCase {
         matrix.invert()
         XCTAssert(matrix.storage == output)
     }
+    
+    func testComputedPropertyIsEmpty() throws {
+        let matrixA = try Matrix(column: 5, row: 5, element: Int.self)
+        XCTAssert(matrixA.isEmpty)
+        
+        var matrixB = try Matrix(column: 5, row: 5, element: Int.self)
+        try matrixB.set(5, x: 1, y: 1)
+        XCTAssert(!matrixB.isEmpty)
+    }
+    
+    func testComputedPropertyIsFull() throws {
+        let matrixA = try Matrix(column: 5, row: 5, element: Int.self)
+        XCTAssert(matrixA.isEmpty)
+        
+        var matrixB = try Matrix(column: 5, row: 5, element: Int.self)
+        try matrixB.set(5, x: 1, y: 1)
+        XCTAssert(!matrixB.isEmpty)
+    }
+    
+    func testComputedPropertyCountNotNil() throws {
+        let matrixA = try Matrix(column: 5, row: 5, element: Int.self)
+        XCTAssert(matrixA.countNotNil == 0)
+        
+        var matrixB = try Matrix(column: 5, row: 5, element: Int.self)
+        try matrixB.set(5, x: 1, y: 1)
+        XCTAssert(matrixB.countNotNil == 1)
+    }
+    
+    func testComputedPropertyCountNil() throws {
+        let matrixA = try Matrix(column: 5, row: 5, element: Int.self)
+        XCTAssert(matrixA.countNil == 25)
+        
+        var matrixB = try Matrix(column: 5, row: 5, element: Int.self)
+        try matrixB.set(5, x: 1, y: 1)
+        XCTAssert(matrixB.countNil == 24)
+    }
+    
 }
