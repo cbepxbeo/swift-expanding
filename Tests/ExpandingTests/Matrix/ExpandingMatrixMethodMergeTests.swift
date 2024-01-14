@@ -23,6 +23,25 @@ import XCTest
 @testable import Expanding
 
 final class ExpandingMatrixMethodMergeTests: XCTestCase {
+    
+    let arrayA = [1, 2, 1, nil, nil, nil, 1, nil, 1]
+    let arrayB = [1, 2, 1, nil, nil, nil, nil, 1, 1, nil, 1, nil, 1, 1, nil, 5]
+    let output = [2, 4, 2, nil, nil, nil, nil, 1, 2, nil, 2, nil, 1, 1, nil, 5]
 
+    func testWithLargerSize() throws {
+        var matrixA = Matrix(column: 3, row: 3, storage: self.arrayA)
+        let matrixB = Matrix(column: 4, row: 4, storage: self.arrayB)
+        let output = Matrix(column: 4, row: 4, storage: self.output)
+        try matrixA.merge(with: matrixB)
+        XCTAssert(matrixA == output)
+    }
+    
+    func testWithSmallSize() throws {
+        var matrixA = Matrix(column: 4, row: 4, storage: self.arrayB)
+        let matrixB = Matrix(column: 3, row: 3, storage: self.arrayA)
+        let output = Matrix(column: 4, row: 4, storage: self.output)
+        try matrixA.merge(with: matrixB)
+        XCTAssert(matrixA == output)
+    }
     
 }
