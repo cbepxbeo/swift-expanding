@@ -35,3 +35,37 @@ public func recruscentPassage(body: (_ out: inout Bool) -> ()){
         }
     }
 }
+
+@inlinable
+@inline(__always)
+public func assign<T: Hashable>(to: inout T, of: T){
+    if to != of { to = of }
+}
+
+#if canImport(Foundation)
+import Foundation
+
+public func toMainThread(
+    _ type: Synchronization = .sync,
+    _ closure: @escaping () -> ()){
+        switch type {
+        case .async:
+            DispatchQueue.main.async {
+                closure()
+            }
+        case .sync:
+            if Thread.isMainThread {
+                closure()
+            } else {
+                DispatchQueue.main.sync {
+                    closure()
+                }
+            }
+        case .after(let second):
+            DispatchQueue.main.asyncAfter(deadline: .now() + second){
+                closure()
+            }
+        }
+    }
+#endif
+
