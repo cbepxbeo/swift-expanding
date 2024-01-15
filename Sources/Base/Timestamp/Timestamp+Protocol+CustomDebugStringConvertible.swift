@@ -12,7 +12,7 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp.swift
+ |  File: Timestamp+Protocol+CustomDebugStringConvertible.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
  |  Last update: December 29th, 2023
@@ -23,18 +23,8 @@
  
  */
 
-#if canImport(Darwin)
-  import Darwin
-#elseif canImport(Glibc)
-  import Glibc
-#else
-  #error("Unsupported platform")
-#endif
-
-public struct Timestamp {
-    init(rawValue: (Int64, Int64)) {
-        self.rawValue = rawValue
+extension Timestamp: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        self.description
     }
-    let rawValue: (Int64, Int64)
 }
-

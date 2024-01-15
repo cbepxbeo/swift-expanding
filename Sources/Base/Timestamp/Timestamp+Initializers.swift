@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Option.swift
+ |  File: Timestamp+Initializers.swift
  |  Created by: Egor Boyko
  |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -24,8 +24,20 @@
  */
 
 extension Timestamp {
-    public enum Option {
-        case seconds
-        case nanoseconds
+    public init(){
+        self.init(rawValue: Self.currentRealTime())
+    }
+    public init(timeIntervalSinceReferenceDate timeInterval: TimeInterval) {
+        self.init(rawValue: timeInterval)
     }
 }
+
+#if canImport(Foundation)
+import Foundation
+
+extension Timestamp  {
+    public init(from date: Date) {
+        self.init(rawValue: date.timeIntervalSince1970)
+    }
+}
+#endif

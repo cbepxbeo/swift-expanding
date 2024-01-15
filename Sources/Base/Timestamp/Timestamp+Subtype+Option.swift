@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Hashable.swift
+ |  File: Timestamp+Subtype+Option.swift
  |  Created by: Egor Boyko
- |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Date: December 30th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -23,9 +23,18 @@
  
  */
 
-extension Timestamp : Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(self.rawValue.0)
-        hasher.combine(self.rawValue.1)
+extension Timestamp {
+    public enum Option {
+        case timeIntervalSince1970
+        case timeIntervalSince
+        
+        var timeIntervalOption: Timestamp.TimeIntervalOption {
+            switch self {
+            case .timeIntervalSince1970:
+                return .between1970AndReferenceDate
+            case .timeIntervalSince:
+                return .sinceReferenceDate
+            }
+        }
     }
 }

@@ -12,19 +12,22 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Equatable.swift
+ |  File: Timestamp+Static+Method+TimeInterval.swift
  |  Created by: Egor Boyko
- |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Date: December 30th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
- |  Status: #In progress | #Not decorated
+ |  Status: #Completed | #Not decorated
  |---------------------------------------------------------------------------------------
  
  */
 
-extension Timestamp : Equatable {
-    public static func == (lhs: Timestamp, rhs: Timestamp) -> Bool {
-        lhs.rawValue == rhs.rawValue
+extension Timestamp {
+    public static func timeInterval(_ option: TimeIntervalOption) -> TimeInterval {
+        option.timeInterval
     }
 }
+
+
+

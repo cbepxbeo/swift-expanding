@@ -12,10 +12,10 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
  |---------------------------------------------------------------------------------------
- |  File: Timestamp+Methods+Receive.swift
+ |  File: Timestamp+Subtype+Distant.swift
  |  Created by: Egor Boyko
- |  Date: December 29th, 2023
- |  Last update: December 29th, 2023
+ |  Date: December 30th, 2023
+ |  Last update: December 30th, 2023
  |  Version: 0.0.1
  |---------------------------------------------------------------------------------------
  |  Status: #In progress | #Not decorated
@@ -24,15 +24,22 @@
  */
 
 extension Timestamp {
-    public func receive(_ option: Self.Option) -> Int64 {
-        switch option {
-        case .seconds:
-                self.rawValue.0
-        case .nanoseconds:
-                self.rawValue.1
+    public enum Distant {
+        case future
+        case past
+        
+        ///0000-01-01 00:00:00 +0000
+        static let zero: TimeInterval = -63145526400
+        ///2147483647-12-31 23:59:52 +0000
+        static let veryFuture: TimeInterval = 67767975255225592
+        
+        var timeInterval: TimeInterval {
+            switch self {
+            case .future:
+                63113904000
+            case .past:
+                -63114076800
+            }
         }
-    }
-    public func receive() -> Double {
-        Double(self.rawValue.0) + Double(self.rawValue.1) / 1_000_000_000
     }
 }
